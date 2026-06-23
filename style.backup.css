@@ -19,49 +19,6 @@
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body { margin: 0; overflow-x: hidden; color: var(--text); background: var(--bg); font-family: Inter, sans-serif; }
-
-/* ── Page load fade-in ── */
-.fade-in { opacity: 0; transform: translateY(28px); transition: opacity .65s ease, transform .65s ease; }
-.fade-in.visible { opacity: 1; transform: none; }
-
-/* ── Sticky shrinking header ── */
-header { transition: height .25s, background .25s, box-shadow .25s; }
-header.scrolled { height: 64px; background: rgba(13,13,16,.95); backdrop-filter: blur(12px); box-shadow: 0 1px 0 var(--border); }
-
-/* ── Hero typing cursor ── */
-.hero h1 .cursor { display: inline-block; width: .06em; height: .85em; background: var(--teal); margin-left: 4px; vertical-align: middle; animation: blink .9s step-end infinite; }
-@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
-
-/* ── Hero grid background ── */
-.hero-grid { position: absolute; inset: 0; z-index: -1; background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px); background-size: 60px 60px; mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 30%, transparent 100%); opacity: .35; }
-
-/* ── Signal bar animation ── */
-.signal i { animation: bar-pulse 1.8s ease-in-out infinite; }
-.signal i:nth-child(2n) { animation-delay: .15s; }
-.signal i:nth-child(3n) { animation-delay: .3s; }
-.signal i:nth-child(4n) { animation-delay: .45s; }
-.signal i:nth-child(5n) { animation-delay: .6s; }
-@keyframes bar-pulse { 0%,100%{opacity:.2} 50%{opacity:.6} }
-
-/* ── Product card tilt + glow ── */
-.product { transition: box-shadow .3s, transform .1s; transform-style: preserve-3d; }
-.product:hover { box-shadow: 0 0 0 1px var(--teal), 0 20px 60px rgba(95,224,212,.08); }
-.product-image { overflow: hidden; }
-
-/* ── Screenshot scan line ── */
-.product-image::after { content: ''; position: absolute; left: 0; right: 0; top: -100%; height: 60px; background: linear-gradient(transparent, rgba(95,224,212,.06), transparent); transition: top .0s; pointer-events: none; }
-.product:hover .product-image::after { animation: scan 1.4s ease-in-out; }
-@keyframes scan { 0%{top:-60px} 100%{top:110%} }
-
-/* ── VOID card glow ── */
-.void-card { transition: box-shadow .3s; }
-.void-card:hover { box-shadow: inset 0 0 40px rgba(95,224,212,.04), 0 0 0 1px var(--teal); }
-.void-card-featured:hover { box-shadow: inset 0 0 80px rgba(95,224,212,.06), 0 0 0 1px var(--teal); }
-
-/* ── Download buttons slide in on card hover ── */
-.download-group { transition: opacity .2s, transform .2s; }
-.product .download-group { opacity: .5; transform: translateY(6px); }
-.product:hover .download-group { opacity: 1; transform: none; }
 button, input { font: inherit; }
 a { color: inherit; }
 .wrap { width: min(1200px, calc(100% - 64px)); margin-inline: auto; }

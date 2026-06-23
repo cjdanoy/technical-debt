@@ -32,62 +32,7 @@ document.querySelectorAll("[data-download]").forEach(link => {
   });
 });
 
-// ── Sticky shrinking header ──
-const header = document.querySelector("header");
-window.addEventListener("scroll", () => {
-  header.classList.toggle("scrolled", window.scrollY > 40);
-}, { passive: true });
-
-// ── Scroll fade-in sections ──
-const fadeEls = document.querySelectorAll(".fade-in");
-const fadeObserver = new IntersectionObserver((entries) => {
-  entries.forEach((e, i) => {
-    if (e.isIntersecting) {
-      setTimeout(() => e.target.classList.add("visible"), i * 80);
-      fadeObserver.unobserve(e.target);
-    }
-  });
-}, { threshold: 0.08 });
-fadeEls.forEach(el => fadeObserver.observe(el));
-
-// ── Hero typing word cycle ──
-const typingEl = document.getElementById("typing-word");
-if (typingEl) {
-  const words = ["Make the plugin", "Build the tool", "Ship the idea", "Describe the sound"];
-  let wordIdx = 0;
-  let charIdx = 0;
-  let deleting = false;
-  const TYPE_SPEED = 60, DELETE_SPEED = 35, PAUSE = 2200;
-  function typeStep() {
-    const word = words[wordIdx];
-    if (!deleting) {
-      charIdx++;
-      typingEl.textContent = word.slice(0, charIdx);
-      if (charIdx === word.length) { deleting = true; setTimeout(typeStep, PAUSE); return; }
-    } else {
-      charIdx--;
-      typingEl.textContent = word.slice(0, charIdx);
-      if (charIdx === 0) { deleting = false; wordIdx = (wordIdx + 1) % words.length; }
-    }
-    setTimeout(typeStep, deleting ? DELETE_SPEED : TYPE_SPEED);
-  }
-  setTimeout(typeStep, 1200);
-}
-
-// ── Card 3D tilt effect ──
-document.querySelectorAll(".product").forEach(card => {
-  card.addEventListener("mousemove", e => {
-    const r = card.getBoundingClientRect();
-    const x = (e.clientX - r.left) / r.width - 0.5;
-    const y = (e.clientY - r.top) / r.height - 0.5;
-    card.style.transform = `perspective(1000px) rotateY(${x * 5}deg) rotateX(${y * -4}deg) scale(1.01)`;
-  });
-  card.addEventListener("mouseleave", () => {
-    card.style.transform = "";
-  });
-});
-
-// ── Active nav highlight on scroll ──
+// Active nav highlight on scroll
 const navLinks = document.querySelectorAll("nav a[href^='#']");
 const sections = [...navLinks].map(a => document.querySelector(a.getAttribute("href"))).filter(Boolean);
 
