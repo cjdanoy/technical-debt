@@ -32,6 +32,23 @@ document.querySelectorAll("[data-download]").forEach(link => {
   });
 });
 
+// Active nav highlight on scroll
+const navLinks = document.querySelectorAll("nav a[href^='#']");
+const sections = [...navLinks].map(a => document.querySelector(a.getAttribute("href"))).filter(Boolean);
+
+function updateActiveNav() {
+  const scrollY = window.scrollY + 120;
+  let current = sections[0];
+  sections.forEach(section => {
+    if (section.offsetTop <= scrollY) current = section;
+  });
+  navLinks.forEach(a => {
+    a.style.color = a.getAttribute("href") === "#" + current.id ? "var(--teal)" : "";
+  });
+}
+window.addEventListener("scroll", updateActiveNav, { passive: true });
+updateActiveNav();
+
 document.querySelector(".close").addEventListener("click", () => dialog.close());
 dialog.addEventListener("click", event => { if (event.target === dialog) dialog.close(); });
 
