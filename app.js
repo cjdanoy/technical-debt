@@ -13,7 +13,9 @@ function showToast(message) {
 // To wire up a real file: set href on the <a> to the actual file path, e.g. "assets/kr-12-mac.zip"
 // The data-download attribute holds the product name, data-platform is "mac" or "win"
 const downloads = {
-  // "KR-12": { mac: "assets/kr-12-mac.zip", win: "assets/kr-12-win.zip" },
+  "Keydence": {
+    win: "https://github.com/cjdanoy/technical-debt/releases/download/vst/Keydence.vst3",
+  },
 };
 
 document.querySelectorAll("[data-download]").forEach(link => {
