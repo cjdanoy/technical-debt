@@ -16,6 +16,9 @@ const downloads = {
   "Keydence": {
     win: "https://github.com/cjdanoy/technical-debt/releases/download/vst/Keydence.vst3",
   },
+  "Dank Machine XT": {
+    win: "https://github.com/cjdanoy/technical-debt/releases/download/drummachinext/Dank.Machine.XT.vst3",
+  },
 };
 
 document.querySelectorAll("[data-download]").forEach(link => {
