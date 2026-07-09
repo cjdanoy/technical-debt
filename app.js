@@ -40,6 +40,9 @@ const downloads = {
   "QUASAR": {
     win: "https://github.com/cjdanoy/technical-debt/releases/download/QUASAR/QUASAR.vst3",
   },
+  "CleanRoom": {
+    win: "https://github.com/cjdanoy/technical-debt/releases/download/Tdbt_CleanRoom/Tdbt.CleanRoom.vst3",
+  },
 };
 
 document.querySelectorAll("[data-download]").forEach(link => {
