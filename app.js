@@ -19,6 +19,12 @@ const downloads = {
   "Dank Machine XT": {
     win: "https://github.com/cjdanoy/technical-debt/releases/download/drummachinext/Dank.Machine.XT.vst3",
   },
+  "HH-44": {
+    win: "https://github.com/cjdanoy/technical-debt/releases/download/hh-44/HH-44.vst3",
+  },
+  "KR-12": {
+    win: "https://github.com/cjdanoy/technical-debt/releases/download/KR-12/KR-12.vst3",
+  },
 };
 
 document.querySelectorAll("[data-download]").forEach(link => {
