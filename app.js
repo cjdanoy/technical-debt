@@ -25,6 +25,21 @@ const downloads = {
   "KR-12": {
     win: "https://github.com/cjdanoy/technical-debt/releases/download/KR-12/KR-12.vst3",
   },
+  "SHATTER": {
+    win: "https://github.com/cjdanoy/technical-debt/releases/download/SHATTER/SHATTER.vst3",
+  },
+  "PARALLAX": {
+    win: "https://github.com/cjdanoy/technical-debt/releases/download/PARALLAX/PARALLAX.vst3",
+  },
+  "CASCADE": {
+    win: "https://github.com/cjdanoy/technical-debt/releases/download/CASCADE/CASCADE.vst3",
+  },
+  "ABYSS": {
+    win: "https://github.com/cjdanoy/technical-debt/releases/download/ABYSS/ABYSS.vst3",
+  },
+  "QUASAR": {
+    win: "https://github.com/cjdanoy/technical-debt/releases/download/QUASAR/QUASAR.vst3",
+  },
 };
 
 document.querySelectorAll("[data-download]").forEach(link => {
