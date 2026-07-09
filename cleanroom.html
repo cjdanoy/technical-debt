@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#5fe0d4">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" href="favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="favicon.png">
+  <meta name="description" content="Tdbt CleanRoom — Pitch-aware algorithmic reverb by Technical Debt. Reverb tails that don't muddy the mix. Free VST3 for Windows.">
+  <title>CleanRoom — Technical Debt</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .plugin-hero { padding-top: 72px; padding-bottom: 80px; border-bottom: 1px solid var(--border); }
+    .plugin-hero-inner { display: grid; grid-template-columns: 1.4fr 1fr; gap: 72px; align-items: center; }
+    .plugin-screenshot { position: relative; aspect-ratio: 16/9; background: #080a10; border: 1px solid var(--border); overflow: hidden; }
+    .plugin-screenshot img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+    .plugin-screenshot-badge { position: absolute; bottom: 16px; left: 16px; padding: 6px 10px; background: rgba(13,13,16,.85); backdrop-filter: blur(8px); border: 1px solid var(--border); font-family: "DM Mono", monospace; font-size: 8px; letter-spacing: .12em; color: var(--teal); }
+    .plugin-meta { display: flex; flex-direction: column; gap: 20px; }
+    .plugin-id { font-family: "DM Mono", monospace; font-size: 9px; color: var(--dim); letter-spacing: .13em; }
+    .plugin-hero h1 { margin: 0; font-size: 80px; line-height: .88; letter-spacing: -.08em; color: var(--text); }
+    .plugin-type { font-family: "DM Mono", monospace; font-size: 9px; letter-spacing: .14em; color: var(--teal); }
+    .plugin-tagline { margin: 0; font-size: 17px; line-height: 1.7; color: var(--muted); max-width: 400px; }
+    .plugin-status-row { display: flex; align-items: center; gap: 12px; padding: 14px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .plugin-status-row .status { position: static; padding: 6px 10px; background: rgba(95,224,212,.08); border: 1px solid rgba(95,224,212,.2); color: var(--teal); }
+    .plugin-version { font-family: "DM Mono", monospace; font-size: 9px; color: var(--dim); letter-spacing: .1em; }
+    .plugin-downloads { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .plugin-downloads .download-btn { padding: 16px 18px; }
+    .media-section { padding-block: 100px; border-bottom: 1px solid var(--border); }
+    .media-grid { display: grid; grid-template-columns: 1.2fr .8fr; gap: 48px; align-items: start; }
+    .video-block h2, .audio-block h2 { margin: 0 0 20px; font-size: 13px; font-weight: 700; letter-spacing: .1em; color: var(--muted); }
+    .video-embed { position: relative; aspect-ratio: 16/9; background: #080a10; border: 1px solid var(--border); overflow: hidden; }
+    .video-embed iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+    .video-placeholder { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; color: var(--dim); }
+    .video-placeholder .play-icon { width: 56px; height: 56px; border: 1px solid var(--border); border-radius: 50%; display: grid; place-items: center; font-size: 20px; color: var(--teal); }
+    .video-placeholder p { margin: 0; font-family: "DM Mono", monospace; font-size: 9px; letter-spacing: .12em; }
+    .demo-list { display: flex; flex-direction: column; gap: 2px; }
+    .demo-track { display: flex; align-items: center; gap: 14px; padding: 14px 16px; background: var(--surface); border: 1px solid var(--border); cursor: pointer; transition: border-color .15s; }
+    .demo-track:hover { border-color: var(--teal); }
+    .demo-track.active { border-color: var(--teal); background: rgba(95,224,212,.06); }
+    .demo-play { width: 32px; height: 32px; border: 1px solid var(--border); border-radius: 50%; display: grid; place-items: center; font-size: 11px; color: var(--teal); flex-shrink: 0; transition: .15s; }
+    .demo-track.active .demo-play, .demo-track:hover .demo-play { background: var(--teal); color: var(--bg); border-color: var(--teal); }
+    .demo-info { flex: 1; min-width: 0; }
+    .demo-name { display: block; font-size: 13px; font-weight: 700; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .demo-desc { display: block; font-family: "DM Mono", monospace; font-size: 9px; color: var(--dim); letter-spacing: .08em; margin-top: 2px; }
+    .demo-duration { font-family: "DM Mono", monospace; font-size: 10px; color: var(--dim); flex-shrink: 0; }
+    .audio-player-bar { margin-top: 16px; padding: 14px 16px; background: var(--surface); border: 1px solid var(--border); display: none; }
+    .audio-player-bar.visible { display: block; }
+    .audio-player-bar audio { width: 100%; height: 32px; accent-color: var(--teal); }
+    .audio-player-label { font-family: "DM Mono", monospace; font-size: 8px; letter-spacing: .1em; color: var(--teal); margin-bottom: 8px; }
+    .features-section { padding-block: 100px; border-bottom: 1px solid var(--border); }
+    .features-section h2 { margin: 12px 0 56px; font-size: 42px; letter-spacing: -.05em; color: var(--text); }
+    .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); }
+    .feature-card { padding: 32px 28px; background: var(--surface); display: flex; flex-direction: column; gap: 12px; }
+    .feature-num { font-family: "DM Mono", monospace; font-size: 9px; letter-spacing: .13em; color: var(--teal); }
+    .feature-card h3 { margin: 0; font-size: 18px; letter-spacing: -.03em; color: var(--text); }
+    .feature-card p { margin: 0; font-size: 13px; line-height: 1.7; color: var(--muted); }
+    .specs-section { padding-block: 100px; }
+    .specs-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; }
+    .specs-section h2 { margin: 12px 0 36px; font-size: 42px; letter-spacing: -.05em; color: var(--text); }
+    .spec-table { width: 100%; border-collapse: collapse; }
+    .spec-table tr { border-bottom: 1px solid var(--border); }
+    .spec-table td { padding: 13px 0; font-size: 13px; }
+    .spec-table td:first-child { color: var(--dim); font-family: "DM Mono", monospace; font-size: 9px; letter-spacing: .1em; width: 140px; padding-right: 20px; }
+    .spec-table td:last-child { color: var(--text); }
+    .changelog { display: flex; flex-direction: column; gap: 0; }
+    .changelog-entry { padding: 20px 0; border-bottom: 1px solid var(--border); }
+    .changelog-entry:first-child { border-top: 1px solid var(--border); }
+    .changelog-version { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+    .changelog-version strong { font-family: "DM Mono", monospace; font-size: 11px; color: var(--teal); }
+    .changelog-version span { font-family: "DM Mono", monospace; font-size: 9px; color: var(--dim); letter-spacing: .1em; }
+    .changelog-entry ul { margin: 0; padding-left: 16px; }
+    .changelog-entry li { font-size: 13px; color: var(--muted); line-height: 1.7; }
+    .back-nav { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 700; color: var(--muted); text-decoration: none; transition: color .15s; }
+    .back-nav:hover { color: var(--teal); }
+    .back-nav span { font-size: 14px; }
+    .cta-strip { padding-block: 80px; background: var(--surface); border-top: 1px solid var(--border); text-align: center; }
+    .cta-strip h2 { margin: 0 0 8px; font-size: 42px; letter-spacing: -.05em; color: var(--text); }
+    .cta-strip p { margin: 0 0 32px; color: var(--muted); font-size: 15px; }
+    .cta-buttons { display: inline-flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+    .cta-buttons .download-btn { min-width: 200px; }
+    @media (max-width: 900px) { .plugin-hero-inner { grid-template-columns: 1fr; gap: 40px; } .media-grid { grid-template-columns: 1fr; } .features-grid { grid-template-columns: 1fr 1fr; } .specs-inner { grid-template-columns: 1fr; gap: 60px; } }
+    @media (max-width: 620px) { .plugin-hero h1 { font-size: 56px; } .features-grid { grid-template-columns: 1fr; } .plugin-downloads { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div class="grain"></div>
+  <header>
+    <a class="logo" href="index.html" aria-label="Technical Debt home">
+      <span class="logo-icon"><span class="glyph">&gt;_</span><span class="accent-bar"></span></span>
+      <span>TECHNICAL<br>DEBT</span>
+    </a>
+    <nav aria-label="Main navigation">
+      <a href="index.html#instruments">Instruments</a>
+      <a href="index.html#void">VØID</a>
+      <a href="index.html#build">Lab Notes</a>
+      <a href="index.html#about">About</a>
+    </nav>
+    <a class="back-nav" href="index.html"><span>&#8592;</span> All plugins</a>
+  </header>
+
+  <main>
+
+    <section class="plugin-hero wrap">
+      <div class="plugin-hero-inner">
+        <div class="plugin-screenshot">
+          <img src="assets/Tdbt cleanroom vst.png" alt="Tdbt CleanRoom reverb plugin interface">
+          <span class="plugin-screenshot-badge mono">ALGORITHMIC REVERB</span>
+        </div>
+        <div class="plugin-meta">
+          <div class="plugin-id mono">TD-006</div>
+          <h1>CleanRoom</h1>
+          <p class="plugin-type">PITCH-AWARE ALGORITHMIC REVERB</p>
+          <p class="plugin-tagline">Pitch-aware reverb tails that don't muddy the mix. Push decay times and room sizes as far as you want — the Mud Clean control strips low-mid buildup in real time so the space stays open even when the tail is enormous.</p>
+          <div class="plugin-status-row">
+            <span class="status mono status-available"><i></i> FREE DOWNLOAD</span>
+            <span class="plugin-version mono">V1.0 &mdash; WINDOWS ONLY</span>
+          </div>
+          <div class="plugin-downloads">
+            <a class="download-btn" href="#" data-download="CleanRoom" data-platform="mac">
+              <span class="dl-os">Mac</span><span class="dl-fmt mono">VST3 / AU — planned</span><span class="dl-arrow">&#8595;</span>
+            </a>
+            <a class="download-btn" href="#" data-download="CleanRoom" data-platform="win">
+              <span class="dl-os">Windows</span><span class="dl-fmt mono">VST3</span><span class="dl-arrow">&#8595;</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="media-section wrap">
+      <div class="media-grid">
+        <div class="video-block">
+          <h2 class="mono">VIDEO DEMO</h2>
+          <div class="video-embed">
+            <!--
+            <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID?rel=0&modestbranding=1" title="CleanRoom demo" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            -->
+            <div class="video-placeholder">
+              <div class="play-icon">▶</div>
+              <p>VIDEO COMING SOON</p>
+            </div>
+          </div>
+        </div>
+        <div class="audio-block">
+          <h2 class="mono">AUDIO DEMOS</h2>
+          <div class="demo-list" id="demo-list">
+            <div class="demo-track" data-src="" data-label="Large Room — Clean Bloom preset">
+              <div class="demo-play">▶</div>
+              <div class="demo-info"><span class="demo-name">Large Room</span><span class="demo-desc">CLEAN BLOOM PRESET</span></div>
+              <span class="demo-duration mono">—:——</span>
+            </div>
+            <div class="demo-track" data-src="" data-label="Rainy Day — Long Tail">
+              <div class="demo-play">▶</div>
+              <div class="demo-info"><span class="demo-name">Rainy Day</span><span class="demo-desc">LONG TAIL / MODULATED</span></div>
+              <span class="demo-duration mono">—:——</span>
+            </div>
+            <div class="demo-track" data-src="" data-label="Pitch Clean — Vocals">
+              <div class="demo-play">▶</div>
+              <div class="demo-info"><span class="demo-name">Pitch Clean</span><span class="demo-desc">VOCALS / WET</span></div>
+              <span class="demo-duration mono">—:——</span>
+            </div>
+          </div>
+          <div class="audio-player-bar" id="audio-player-bar">
+            <div class="audio-player-label mono" id="now-playing-label">NOW PLAYING</div>
+            <audio id="audio-player" controls></audio>
+          </div>
+          <p style="margin-top:16px; font-family:'DM Mono',monospace; font-size:9px; color:var(--dim); letter-spacing:.1em;">AUDIO DEMOS COMING SOON</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="features-section wrap">
+      <span class="mono index">FEATURES</span>
+      <h2>What it does</h2>
+      <div class="features-grid">
+
+        <div class="feature-card">
+          <span class="feature-num mono">01</span>
+          <h3>Mud Clean</h3>
+          <p>The core feature. Strips low-mid buildup from the reverb tail in real time — dial it up and the muddiness disappears while the space stays intact. Run longer decays without clouding the mix.</p>
+        </div>
+
+        <div class="feature-card">
+          <span class="feature-num mono">02</span>
+          <h3>Pitch Clean Mode</h3>
+          <p>Keeps the reverb tail harmonically aware of the input pitch. The tail tracks what you're playing rather than smearing across random frequencies — more musical, less wash.</p>
+        </div>
+
+        <div class="feature-card">
+          <span class="feature-num mono">03</span>
+          <h3>EQ & High Damp Shaping</h3>
+          <p>A built-in EQ display lets you shape the frequency content of the tail directly. High Damp rolls off the top end as the reverb decays for a natural room feel.</p>
+        </div>
+
+        <div class="feature-card">
+          <span class="feature-num mono">04</span>
+          <h3>Gate & Duck Input</h3>
+          <p>Gate the tail so it closes cleanly instead of washing into the next phrase. Duck Input automatically pulls the reverb back when the dry signal hits, keeping the source upfront.</p>
+        </div>
+
+        <div class="feature-card">
+          <span class="feature-num mono">05</span>
+          <h3>LFO Modulation</h3>
+          <p>Mod Depth and Mod Rate add slow movement to the reverb tail — subtle chorus-like drift that keeps long reverbs from sounding static. Damp Speed controls how fast the modulation affects the tail.</p>
+        </div>
+
+        <div class="feature-card">
+          <span class="feature-num mono">06</span>
+          <h3>Chamber Types & Presets</h3>
+          <p>Multiple chamber types change the character of the space. Presets like Clean Bloom and Rainy Day give fast starting points — copy and save your own to build a library.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="specs-section wrap">
+      <div class="specs-inner">
+        <div>
+          <span class="mono index">SPECS</span>
+          <h2>Technical details</h2>
+          <table class="spec-table">
+            <tr><td>TYPE</td><td>Algorithmic Reverb</td></tr>
+            <tr><td>FORMAT</td><td>VST3 — Mac AU planned</td></tr>
+            <tr><td>PLATFORM</td><td>Windows 10+ — macOS planned</td></tr>
+            <tr><td>ARCH</td><td>x64</td></tr>
+            <tr><td>KEY FEATURE</td><td>Mud Clean — real-time low-mid removal</td></tr>
+            <tr><td>PITCH MODE</td><td>Pitch Clean, Pitch Amt, Pitch Damping</td></tr>
+            <tr><td>MODULATION</td><td>LFO with Mod Depth, Mod Rate, Damp Speed</td></tr>
+            <tr><td>DYNAMICS</td><td>Gate, Duck Input</td></tr>
+            <tr><td>SHAPING</td><td>EQ display, Low Cut, High Cut, High Damp</td></tr>
+            <tr><td>PRESETS</td><td>Chamber types, named presets, copy/save</td></tr>
+            <tr><td>LICENSE</td><td>Free — personal &amp; commercial use</td></tr>
+          </table>
+        </div>
+        <div>
+          <span class="mono index">CHANGELOG</span>
+          <h2>Version history</h2>
+          <div class="changelog">
+            <div class="changelog-entry">
+              <div class="changelog-version">
+                <strong>v1.0</strong>
+                <span>CURRENT &mdash; 2026</span>
+              </div>
+              <ul>
+                <li>Initial release — Windows VST3</li>
+                <li>Mud Clean real-time low-mid removal</li>
+                <li>Pitch Clean mode with pitch tracking</li>
+                <li>EQ display, Gate, Duck Input, LFO</li>
+                <li>Chamber types with preset system</li>
+                <li>Low Cut, High Cut, High Damp, Width controls</li>
+              </ul>
+            </div>
+            <div class="changelog-entry">
+              <div class="changelog-version">
+                <strong>v1.1</strong>
+                <span>UPCOMING</span>
+              </div>
+              <ul>
+                <li>Mac AU + VST3 builds</li>
+                <li>Additional chamber types</li>
+                <li>MIDI learn for key parameters</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="cta-strip">
+      <div class="wrap">
+        <h2>Free download</h2>
+        <p>No license key. No sign-up. Just the plugin.</p>
+        <div class="cta-buttons">
+          <a class="download-btn" href="#" data-download="CleanRoom" data-platform="mac">
+            <span class="dl-os">Mac</span><span class="dl-fmt mono">VST3 / AU — planned</span><span class="dl-arrow">&#8595;</span>
+          </a>
+          <a class="download-btn" href="#" data-download="CleanRoom" data-platform="win">
+            <span class="dl-os">Windows</span><span class="dl-fmt mono">VST3</span><span class="dl-arrow">&#8595;</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer>
+    <div class="wrap footer-inner">
+      <div class="footer-left">
+        <a class="logo" href="index.html" aria-label="Technical Debt home">
+          <span class="logo-icon"><span class="glyph">&gt;_</span><span class="accent-bar"></span></span>
+          <span>TECHNICAL<br>DEBT</span>
+        </a>
+        <p>Free instruments for unfinished ideas.<br>All plugins free for personal &amp; commercial use.</p>
+      </div>
+      <nav class="footer-nav" aria-label="Footer navigation">
+        <a href="index.html#instruments">Instruments</a>
+        <a href="index.html#void">VØID</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#updates">Updates</a>
+      </nav>
+      <div class="footer-socials">
+        <span class="mono">FIND US</span>
+        <div class="social-links">
+          <a href="#" aria-label="GitHub">GitHub</a>
+          <a href="#" aria-label="Instagram">Instagram</a>
+          <a href="#" aria-label="SoundCloud">SoundCloud</a>
+        </div>
+        <span class="mono footer-copy">INDEPENDENT &middot; FREE &amp; OPEN SOURCE &middot; EST. 2026</span>
+      </div>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" role="status"></div>
+
+  <script>
+    const downloads = {
+      "CleanRoom": {
+        win: "https://github.com/cjdanoy/technical-debt/releases/download/Tdbt_CleanRoom/Tdbt.CleanRoom.vst3",
+      },
+    };
+    const toast = document.querySelector("#toast");
+    function showToast(msg) { toast.textContent = msg; toast.classList.add("show"); clearTimeout(showToast.t); showToast.t = setTimeout(() => toast.classList.remove("show"), 2600); }
+    document.querySelectorAll("[data-download]").forEach(link => {
+      link.addEventListener("click", e => {
+        e.preventDefault();
+        const f = downloads[link.dataset.download];
+        if (f && f[link.dataset.platform]) window.location.href = f[link.dataset.platform];
+        else showToast(`CleanRoom for ${link.dataset.platform === "mac" ? "Mac" : "Windows"} — coming soon.`);
+      });
+    });
+    document.querySelectorAll(".demo-track").forEach(track => {
+      track.addEventListener("click", () => {
+        if (!track.dataset.src) { showToast("Audio demo coming soon."); return; }
+        document.querySelectorAll(".demo-track").forEach(t => t.classList.remove("active"));
+        track.classList.add("active");
+        const player = document.getElementById("audio-player");
+        document.getElementById("now-playing-label").textContent = track.dataset.label;
+        document.getElementById("audio-player-bar").classList.add("visible");
+        player.src = track.dataset.src;
+        player.play();
+      });
+    });
+    const header = document.querySelector("header");
+    window.addEventListener("scroll", () => header.classList.toggle("scrolled", window.scrollY > 40), { passive: true });
+  </script>
+</body>
+</html>
