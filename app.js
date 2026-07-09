@@ -47,6 +47,7 @@ const downloads = {
 
 document.querySelectorAll("[data-download]").forEach(link => {
   link.addEventListener("click", event => {
+    event.stopPropagation();
     event.preventDefault();
     const product = link.dataset.download;
     const platform = link.dataset.platform;
