@@ -439,10 +439,10 @@
           </div>
           <div class="plugin-downloads">
             <a class="download-btn" href="#" data-download="Say So" data-platform="mac">
-              <span class="dl-os">Mac</span><span class="dl-fmt mono">Python App — planned</span><span class="dl-arrow">&#8595;</span>
+              <span class="dl-os">Mac</span><span class="dl-fmt mono">macOS — planned</span><span class="dl-arrow">&#8595;</span>
             </a>
             <a class="download-btn" href="#" data-download="Say So" data-platform="win">
-              <span class="dl-os">Windows</span><span class="dl-fmt mono">Python App</span><span class="dl-arrow">&#8595;</span>
+              <span class="dl-os">Windows</span><span class="dl-fmt mono">.exe</span><span class="dl-arrow">&#8595;</span>
             </a>
           </div>
         </div>
@@ -529,28 +529,20 @@
             <span class="setup-step-num mono">02</span>
             <div class="setup-step-body">
               <h3>Install SaySoBridge</h3>
-              <p>SaySoBridge handles plugin loading without requiring you to type into Ableton's search bar. Install it as a Control Surface alongside AbletonOSC — drop it into <code>Documents\Ableton\User Library\Remote Scripts\</code> and select it in Live's preferences.</p>
+              <p>SaySoBridge handles plugin loading directly through Live's API. Drop it into <code>Documents\Ableton\User Library\Remote Scripts\</code> and select it as a second Control Surface alongside AbletonOSC in Live's preferences.</p>
             </div>
           </div>
 
           <div class="setup-step">
             <span class="setup-step-num mono">03</span>
             <div class="setup-step-body">
-              <h3>Install dependencies</h3>
-              <p>Open a terminal in the Say So folder and run <code>pip install -r requirements.txt</code>. Requires Python 3.8+.</p>
+              <h3>Run SaySo.exe</h3>
+              <p>Double-click <code>SaySo.exe</code>. The first run will download the speech model automatically — this takes a moment. The status dot turns green when your mic is active and Ableton is connected. No Python required.</p>
             </div>
           </div>
 
           <div class="setup-step">
             <span class="setup-step-num mono">04</span>
-            <div class="setup-step-body">
-              <h3>Run Say So</h3>
-              <p>Double-click <code>run.bat</code> — or run <code>python sayso.py</code> from the terminal. The status dot turns green when your mic is active and Ableton is connected.</p>
-            </div>
-          </div>
-
-          <div class="setup-step">
-            <span class="setup-step-num mono">05</span>
             <div class="setup-step-body">
               <h3>Calibrate M2TM (optional)</h3>
               <p>To use hands-free chord composing, open a clip with the M2TM Notes text box visible, hover your mouse over it, and say <code>calibrate</code>. Remembered across sessions.</p>
@@ -562,11 +554,11 @@
         <div style="display:flex; flex-direction:column; gap:16px;">
           <div class="note-box">
             <strong>NOTE — PLUGIN LOADING</strong>
-            <p>With SaySoBridge installed, commands like "put Operator on drums" load plugins directly without touching the search bar. If Live runs as administrator, run <code>run.bat</code> as administrator too.</p>
+            <p>With SaySoBridge installed, commands like "put Operator on drums" load plugins directly without touching the search bar. If Live runs as administrator, run <code>SaySo.exe</code> as administrator too.</p>
           </div>
           <div class="note-box">
             <strong>NOTE — MISHEARING</strong>
-            <p>Everything heard is logged — look for <code>heard: "..."</code> when no command matched. Consistent mishearing? Add an alias to <code>_ALIASES</code> in the script, or check that the word is in <code>_GRAMMAR_BASE</code>.</p>
+            <p>Everything heard is logged in the app. Type the command you actually meant into the <code>&gt;</code> box and Say So learns the correction — improving accuracy on your voice over time.</p>
           </div>
         </div>
 
@@ -585,8 +577,6 @@
           <tr><td>"tempo one twenty eight" / "tempo up" / "tempo down"</td><td>Set or nudge BPM</td></tr>
           <tr><td>"metronome on/off" / "loop on/off"</td><td>Metronome and loop toggle</td></tr>
           <tr><td>"undo" / "redo"</td><td>Edit history</td></tr>
-          <tr><td>"pause" / "resume"</td><td>Mic gate — stop/start listening (use when singing)</td></tr>
-          <tr><td>"over"</td><td>End of command (when "wait for over" is toggled on)</td></tr>
         </table>
       </div>
 
@@ -596,6 +586,7 @@
           <tr><td>"launch scene three" / "next scene" / "previous scene"</td><td>Scene navigation and launch</td></tr>
           <tr><td>"fire clip two on drums"</td><td>Launch a clip by index on a named track</td></tr>
           <tr><td>"stop all clips"</td><td>Stop all running clips</td></tr>
+          <tr><td>"delete clip two on drums"</td><td>Remove a clip</td></tr>
         </table>
       </div>
 
@@ -608,6 +599,21 @@
           <tr><td>"volume up on bass" / "set volume fifty on drums"</td><td>Fader control (85 = 0 dB)</td></tr>
           <tr><td>"pan left on keys" / "pan center on drums"</td><td>Panning</td></tr>
           <tr><td>"select drums"</td><td>Select track</td></tr>
+          <tr><td>"monitor off / auto / in on track two"</td><td>Monitoring state</td></tr>
+          <tr><td>"input from ext in on track two"</td><td>Input routing (experimental)</td></tr>
+          <tr><td>"audio to master on drums"</td><td>Output routing (experimental)</td></tr>
+        </table>
+      </div>
+
+      <div class="cmd-group">
+        <p class="cmd-group-label mono">APP CONTROL</p>
+        <table class="cmd-table">
+          <tr><td>"pause" / "resume"</td><td>Mic gate — stop/start listening (use when singing)</td></tr>
+          <tr><td>"over"</td><td>End of command (when "wait for over" is toggled on)</td></tr>
+          <tr><td>"type it"</td><td>Type composed M2TM syntax into the box and hit Enter</td></tr>
+          <tr><td>"clear text"</td><td>Wipe the M2TM text box</td></tr>
+          <tr><td>"calibrate"</td><td>Remember M2TM box position (hover mouse over it first)</td></tr>
+          <tr><td>"refresh tracks"</td><td>Re-read track names from Live</td></tr>
         </table>
       </div>
 
@@ -640,6 +646,15 @@
         </table>
       </div>
 
+      <div style="margin-top:32px; padding:20px 24px; background:var(--surface); border:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; gap:24px;">
+        <div>
+          <p style="margin:0 0 4px; font-family:'DM Mono',monospace; font-size:9px; letter-spacing:.13em; color:var(--teal);">CHEAT SHEET</p>
+          <p style="margin:0; font-size:14px; font-weight:700; color:var(--text);">Say So — Command Reference PDF</p>
+          <p style="margin:4px 0 0; font-size:12px; color:var(--muted);">All commands on one page. Print it or keep it open while you work.</p>
+        </div>
+        <a href="assets/SaySo_CheatSheet.pdf" download style="display:inline-flex; align-items:center; gap:10px; padding:12px 20px; background:transparent; border:1px solid var(--teal); color:var(--teal); text-decoration:none; font-family:'DM Mono',monospace; font-size:10px; letter-spacing:.1em; white-space:nowrap; transition:background .15s;" onmouseover="this.style.background='rgba(95,224,212,.1)'" onmouseout="this.style.background='transparent'">DOWNLOAD PDF &#8595;</a>
+      </div>
+
     </section>
 
     <section class="specs-section wrap">
@@ -648,8 +663,8 @@
           <span class="mono index">SPECS</span>
           <h2>Details</h2>
           <table class="spec-table">
-            <tr><td>TYPE</td><td>Python Application</td></tr>
-            <tr><td>REQUIRES</td><td>Python 3.8+, AbletonOSC, Ableton Live 10+</td></tr>
+            <tr><td>TYPE</td><td>Windows Application (.exe)</td></tr>
+            <tr><td>REQUIRES</td><td>AbletonOSC, SaySoBridge, Ableton Live 10+</td></tr>
             <tr><td>PLATFORM</td><td>Windows — macOS planned</td></tr>
             <tr><td>SPEECH</td><td>Constrained grammar + open vocabulary renaming</td></tr>
             <tr><td>PROTOCOL</td><td>OSC via AbletonOSC (port 11000)</td></tr>
@@ -689,10 +704,10 @@
     <p>Free. Unofficial. Not affiliated with Ableton AG.</p>
     <div class="cta-buttons">
       <a class="download-btn" href="#" data-download="Say So" data-platform="mac">
-        <span class="dl-os">Mac</span><span class="dl-fmt mono">Python App — planned</span><span class="dl-arrow">&#8595;</span>
+        <span class="dl-os">Mac</span><span class="dl-fmt mono">macOS — planned</span><span class="dl-arrow">&#8595;</span>
       </a>
       <a class="download-btn" href="#" data-download="Say So" data-platform="win">
-        <span class="dl-os">Windows</span><span class="dl-fmt mono">Python App</span><span class="dl-arrow">&#8595;</span>
+        <span class="dl-os">Windows</span><span class="dl-fmt mono">.exe</span><span class="dl-arrow">&#8595;</span>
       </a>
     </div>
   </div>
