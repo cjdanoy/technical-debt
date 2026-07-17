@@ -1,0 +1,686 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#5fe0d4">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" href="favicon.png" type="image/png">
+  <link rel="apple-touch-icon" href="favicon.png">
+  <meta name="description" content="Say So — Voice control for Ableton Live by Technical Debt. Hands-free DAW control with constrained speech recognition and M2TM chord composing.">
+  <title>Say So — Technical Debt</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ── Plugin page specific ── */
+    .plugin-hero {
+      padding-top: 72px;
+      padding-bottom: 80px;
+      border-bottom: 1px solid var(--border);
+    }
+    .plugin-hero-inner {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 72px;
+      align-items: center;
+    }
+    .plugin-screenshot {
+      position: relative;
+      aspect-ratio: 16/9;
+      background: #080a10;
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .plugin-screenshot img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+    }
+    .plugin-screenshot-badge {
+      position: absolute;
+      bottom: 16px;
+      left: 16px;
+      padding: 6px 10px;
+      background: rgba(13,13,16,.85);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border);
+      font-family: "DM Mono", monospace;
+      font-size: 8px;
+      letter-spacing: .12em;
+      color: var(--teal);
+    }
+    .plugin-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .plugin-id {
+      font-family: "DM Mono", monospace;
+      font-size: 9px;
+      color: var(--dim);
+      letter-spacing: .13em;
+    }
+    .plugin-hero h1 {
+      margin: 0;
+      font-size: 80px;
+      line-height: .88;
+      letter-spacing: -.08em;
+      color: var(--text);
+    }
+    .plugin-type {
+      font-family: "DM Mono", monospace;
+      font-size: 9px;
+      letter-spacing: .14em;
+      color: var(--teal);
+    }
+    .plugin-tagline {
+      margin: 0;
+      font-size: 17px;
+      line-height: 1.7;
+      color: var(--muted);
+      max-width: 400px;
+    }
+    .plugin-status-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .plugin-status-row .status {
+      position: static;
+      padding: 6px 10px;
+      background: rgba(95,224,212,.08);
+      border: 1px solid rgba(95,224,212,.2);
+      color: var(--teal);
+    }
+    .plugin-version {
+      font-family: "DM Mono", monospace;
+      font-size: 9px;
+      color: var(--dim);
+      letter-spacing: .1em;
+    }
+    .plugin-downloads {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .plugin-downloads .download-btn {
+      padding: 16px 18px;
+    }
+
+    /* ── Setup section ── */
+    .setup-section {
+      padding-block: 100px;
+      border-bottom: 1px solid var(--border);
+    }
+    .setup-section h2 {
+      margin: 12px 0 48px;
+      font-size: 42px;
+      letter-spacing: -.05em;
+      color: var(--text);
+    }
+    .setup-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+    .setup-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .setup-step {
+      display: flex;
+      gap: 20px;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .setup-step:first-child { border-top: 1px solid var(--border); }
+    .setup-step-num {
+      font-family: "DM Mono", monospace;
+      font-size: 9px;
+      letter-spacing: .13em;
+      color: var(--teal);
+      flex-shrink: 0;
+      padding-top: 2px;
+    }
+    .setup-step-body h3 {
+      margin: 0 0 6px;
+      font-size: 15px;
+      color: var(--text);
+    }
+    .setup-step-body p {
+      margin: 0;
+      font-size: 13px;
+      line-height: 1.7;
+      color: var(--muted);
+    }
+    .setup-step-body code {
+      font-family: "DM Mono", monospace;
+      font-size: 11px;
+      color: var(--teal);
+      background: rgba(95,224,212,.07);
+      padding: 2px 6px;
+      border: 1px solid rgba(95,224,212,.15);
+    }
+    .note-box {
+      padding: 20px 24px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--teal);
+    }
+    .note-box p {
+      margin: 0;
+      font-size: 13px;
+      line-height: 1.7;
+      color: var(--muted);
+    }
+    .note-box strong {
+      font-family: "DM Mono", monospace;
+      font-size: 10px;
+      color: var(--teal);
+      letter-spacing: .1em;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    /* ── Command reference ── */
+    .commands-section {
+      padding-block: 100px;
+      border-bottom: 1px solid var(--border);
+    }
+    .commands-section h2 {
+      margin: 12px 0 48px;
+      font-size: 42px;
+      letter-spacing: -.05em;
+      color: var(--text);
+    }
+    .cmd-group {
+      margin-bottom: 40px;
+    }
+    .cmd-group-label {
+      font-family: "DM Mono", monospace;
+      font-size: 9px;
+      letter-spacing: .14em;
+      color: var(--teal);
+      margin-bottom: 12px;
+    }
+    .cmd-table {
+      width: 100%;
+      border-collapse: collapse;
+      border: 1px solid var(--border);
+    }
+    .cmd-table tr {
+      border-bottom: 1px solid var(--border);
+    }
+    .cmd-table tr:last-child { border-bottom: none; }
+    .cmd-table td {
+      padding: 11px 16px;
+      font-size: 13px;
+      vertical-align: top;
+    }
+    .cmd-table td:first-child {
+      font-family: "DM Mono", monospace;
+      font-size: 11px;
+      color: var(--teal);
+      width: 45%;
+      background: rgba(95,224,212,.03);
+    }
+    .cmd-table td:last-child { color: var(--muted); }
+
+    /* ── Features ── */
+    .features-section {
+      padding-block: 100px;
+      border-bottom: 1px solid var(--border);
+    }
+    .features-section h2 {
+      margin: 12px 0 56px;
+      font-size: 42px;
+      letter-spacing: -.05em;
+      color: var(--text);
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+    .feature-card {
+      padding: 32px 28px;
+      background: var(--surface);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .feature-num {
+      font-family: "DM Mono", monospace;
+      font-size: 9px;
+      letter-spacing: .13em;
+      color: var(--teal);
+    }
+    .feature-card h3 {
+      margin: 0;
+      font-size: 18px;
+      letter-spacing: -.03em;
+      color: var(--text);
+    }
+    .feature-card p {
+      margin: 0;
+      font-size: 13px;
+      line-height: 1.7;
+      color: var(--muted);
+    }
+
+    /* ── Specs ── */
+    .specs-section {
+      padding-block: 100px;
+    }
+    .specs-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+    }
+    .specs-section h2 {
+      margin: 12px 0 36px;
+      font-size: 42px;
+      letter-spacing: -.05em;
+      color: var(--text);
+    }
+    .spec-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .spec-table tr {
+      border-bottom: 1px solid var(--border);
+    }
+    .spec-table td {
+      padding: 13px 0;
+      font-size: 13px;
+    }
+    .spec-table td:first-child {
+      color: var(--dim);
+      font-family: "DM Mono", monospace;
+      font-size: 9px;
+      letter-spacing: .1em;
+      width: 140px;
+      padding-right: 20px;
+    }
+    .spec-table td:last-child { color: var(--text); }
+    .changelog { display: flex; flex-direction: column; gap: 0; }
+    .changelog-entry {
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .changelog-entry:first-child { border-top: 1px solid var(--border); }
+    .changelog-version {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    .changelog-version strong {
+      font-family: "DM Mono", monospace;
+      font-size: 11px;
+      color: var(--teal);
+    }
+    .changelog-version span {
+      font-family: "DM Mono", monospace;
+      font-size: 9px;
+      color: var(--dim);
+      letter-spacing: .1em;
+    }
+    .changelog-entry ul {
+      margin: 0;
+      padding-left: 16px;
+    }
+    .changelog-entry li {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* ── Back nav ── */
+    .back-nav {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color .15s;
+    }
+    .back-nav:hover { color: var(--teal); }
+    .back-nav span { font-size: 14px; }
+
+    /* ── CTA strip ── */
+    .cta-strip {
+      padding-block: 80px;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+    .cta-strip h2 {
+      margin: 0 0 8px;
+      font-size: 42px;
+      letter-spacing: -.05em;
+      color: var(--text);
+    }
+    .cta-strip p {
+      margin: 0 0 32px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+    .cta-buttons {
+      display: inline-flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .cta-buttons .download-btn {
+      min-width: 200px;
+    }
+
+    @media (max-width: 900px) {
+      .plugin-hero-inner { grid-template-columns: 1fr; gap: 40px; }
+      .setup-grid { grid-template-columns: 1fr; }
+      .features-grid { grid-template-columns: 1fr 1fr; }
+      .specs-inner { grid-template-columns: 1fr; gap: 60px; }
+    }
+    @media (max-width: 620px) {
+      .plugin-hero h1 { font-size: 60px; }
+      .features-grid { grid-template-columns: 1fr; }
+      .plugin-downloads { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="grain"></div>
+  <header>
+    <a class="logo" href="index.html" aria-label="Technical Debt home">
+      <span class="logo-icon">
+        <span class="glyph">&gt;_</span>
+        <span class="accent-bar"></span>
+      </span>
+      <span>TECHNICAL<br>DEBT</span>
+    </a>
+    <nav aria-label="Main navigation">
+      <a href="index.html#instruments">Instruments</a>
+      <a href="index.html#void">VØID</a>
+      <a href="index.html#build">Lab Notes</a>
+      <a href="index.html#about">About</a>
+    </nav>
+    <a class="back-nav" href="index.html"><span>&#8592;</span> All plugins</a>
+  </header>
+
+  <main>
+
+    <section class="plugin-hero wrap">
+      <div class="plugin-hero-inner">
+        <div class="plugin-screenshot">
+          <img src="assets/Say So.png" alt="Say So voice control interface">
+          <span class="plugin-screenshot-badge mono">VOICE CONTROLLER</span>
+        </div>
+        <div class="plugin-meta">
+          <div class="plugin-id mono">TD-007</div>
+          <h1>Say So</h1>
+          <p class="plugin-type">VOICE CONTROL / ABLETON LIVE</p>
+          <p class="plugin-tagline">Talk to your DAW. Say So puts full Ableton Live control on your voice — transport, tempo, tracks, clips, mixing, and hands-free chord composing. Constrained grammar means it only hears what it knows.</p>
+          <div class="plugin-status-row">
+            <span class="status mono status-available"><i></i> FREE DOWNLOAD</span>
+            <span class="plugin-version mono">V1.0 &mdash; WINDOWS</span>
+          </div>
+          <div class="plugin-downloads">
+            <a class="download-btn" href="#" data-download="Say So" data-platform="mac">
+              <span class="dl-os">Mac</span><span class="dl-fmt mono">Python App — planned</span><span class="dl-arrow">&#8595;</span>
+            </a>
+            <a class="download-btn" href="#" data-download="Say So" data-platform="win">
+              <span class="dl-os">Windows</span><span class="dl-fmt mono">Python App</span><span class="dl-arrow">&#8595;</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="features-section wrap">
+      <span class="mono index">FEATURES</span>
+      <h2>What it does</h2>
+      <div class="features-grid">
+
+        <div class="feature-card">
+          <span class="feature-num mono">01</span>
+          <h3>Constrained Grammar</h3>
+          <p>The recognizer only hears words the app understands — plus your actual track names. "Compose D minor" can no longer come out as "campos de minor." Unknown words become silence instead of wrong guesses.</p>
+        </div>
+
+        <div class="feature-card">
+          <span class="feature-num mono">02</span>
+          <h3>Full Ableton Control</h3>
+          <p>Transport, tempo, metronome, loop, undo, scenes, clips, mute, solo, arm, volume, pan, plugin loading — all on your voice. Works via AbletonOSC running as a Control Surface in Live.</p>
+        </div>
+
+        <div class="feature-card">
+          <span class="feature-num mono">03</span>
+          <h3>Hands-Free Composing</h3>
+          <p>Say a chord progression and Say So writes the M2TM Notes syntax, creates a clip, and types it in — all without touching the keyboard. "Make a MIDI clip on drums scene one, C major G major A minor each one bar."</p>
+        </div>
+
+        <div class="feature-card">
+          <span class="feature-num mono">04</span>
+          <h3>Smart Track Renaming</h3>
+          <p>Say "rename drums" — Say So switches to open vocabulary, asks for the new name, you speak anything, it renames and snaps the constrained grammar back on. One-shot "rename X to Y" still works for common words.</p>
+        </div>
+
+        <div class="feature-card">
+          <span class="feature-num mono">05</span>
+          <h3>Plugin Loading</h3>
+          <p>Say "put Operator on drums" or "add reverb to bass" — Say So selects the track and navigates Live's browser to load the plugin in one sentence. Live must be the active window for browser automation to work.</p>
+        </div>
+
+        <div class="feature-card">
+          <span class="feature-num mono">06</span>
+          <h3>Live Track Sync</h3>
+          <p>Track names are added to the vocabulary automatically whenever they change. Say "seven audio" to match Live's default naming. Say "refresh tracks" to force a re-read if names get out of sync.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="setup-section wrap">
+      <span class="mono index">SETUP</span>
+      <h2>Getting started</h2>
+      <div class="setup-grid">
+        <div class="setup-steps">
+
+          <div class="setup-step">
+            <span class="setup-step-num mono">01</span>
+            <div class="setup-step-body">
+              <h3>Install AbletonOSC</h3>
+              <p>Download <a href="https://github.com/ideoforms/AbletonOSC" style="color:var(--teal)">AbletonOSC</a> and drop it into <code>Documents\Ableton\User Library\Remote Scripts\</code>. In Live's preferences, select it as a Control Surface and restart Live.</p>
+            </div>
+          </div>
+
+          <div class="setup-step">
+            <span class="setup-step-num mono">02</span>
+            <div class="setup-step-body">
+              <h3>Install dependencies</h3>
+              <p>Open a terminal in the Say So folder and run <code>pip install -r requirements.txt</code>. Requires Python 3.8+.</p>
+            </div>
+          </div>
+
+          <div class="setup-step">
+            <span class="setup-step-num mono">03</span>
+            <div class="setup-step-body">
+              <h3>Run Say So</h3>
+              <p>Double-click <code>run.bat</code> — or run <code>python sayso.py</code> from the terminal. The status dot turns green when your mic is active and Ableton is connected.</p>
+            </div>
+          </div>
+
+          <div class="setup-step">
+            <span class="setup-step-num mono">04</span>
+            <div class="setup-step-body">
+              <h3>Calibrate M2TM (optional)</h3>
+              <p>To use hands-free chord composing, open a clip with the M2TM Notes text box visible, hover your mouse over it, and say <code>calibrate</code>. Remembered across sessions.</p>
+            </div>
+          </div>
+
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:16px;">
+          <div class="note-box">
+            <strong>NOTE — PLUGIN LOADING</strong>
+            <p>Commands like "put Operator on drums" automate Live's browser (Ctrl+F → first result → Enter). Live must be the frontmost window for this to work. If Live runs as administrator, run <code>run.bat</code> as administrator too.</p>
+          </div>
+          <div class="note-box">
+            <strong>NOTE — MISHEARING</strong>
+            <p>Everything heard is logged — look for <code>heard: "..."</code> when no command matched. Consistent mishearing? Add an alias to <code>_ALIASES</code> in the script, or check that the word is in <code>_GRAMMAR_BASE</code>.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="commands-section wrap">
+      <span class="mono index">COMMANDS</span>
+      <h2>Voice reference</h2>
+
+      <div class="cmd-group">
+        <p class="cmd-group-label mono">TRANSPORT &amp; TEMPO</p>
+        <table class="cmd-table">
+          <tr><td>"play" / "stop" / "continue"</td><td>Transport controls</td></tr>
+          <tr><td>"record on" / "record off"</td><td>Session record toggle</td></tr>
+          <tr><td>"tempo one twenty eight" / "tempo up" / "tempo down"</td><td>Set or nudge BPM</td></tr>
+          <tr><td>"metronome on/off" / "loop on/off"</td><td>Metronome and loop toggle</td></tr>
+          <tr><td>"undo" / "redo"</td><td>Edit history</td></tr>
+        </table>
+      </div>
+
+      <div class="cmd-group">
+        <p class="cmd-group-label mono">SCENES &amp; CLIPS</p>
+        <table class="cmd-table">
+          <tr><td>"launch scene three" / "next scene" / "previous scene"</td><td>Scene navigation and launch</td></tr>
+          <tr><td>"fire clip two on drums"</td><td>Launch a clip by index on a named track</td></tr>
+          <tr><td>"stop all clips"</td><td>Stop all running clips</td></tr>
+        </table>
+      </div>
+
+      <div class="cmd-group">
+        <p class="cmd-group-label mono">MIXER</p>
+        <table class="cmd-table">
+          <tr><td>"mute drums" / "unmute bass"</td><td>Mute / unmute by track name or "track three"</td></tr>
+          <tr><td>"solo drums" / "unsolo drums"</td><td>Solo toggle</td></tr>
+          <tr><td>"arm drums" / "disarm drums"</td><td>Record arm toggle</td></tr>
+          <tr><td>"volume up on bass" / "set volume fifty on drums"</td><td>Fader control (85 = 0 dB)</td></tr>
+          <tr><td>"pan left on keys" / "pan center on drums"</td><td>Panning</td></tr>
+          <tr><td>"select drums"</td><td>Select track</td></tr>
+        </table>
+      </div>
+
+      <div class="cmd-group">
+        <p class="cmd-group-label mono">TRACKS &amp; PLUGINS</p>
+        <table class="cmd-table">
+          <tr><td>"new audio track" / "new midi track"</td><td>Create track</td></tr>
+          <tr><td>"rename drums" → say any name</td><td>Two-step rename, open vocabulary</td></tr>
+          <tr><td>"rename drums to synth bass"</td><td>One-shot rename for common words</td></tr>
+          <tr><td>"delete track drums"</td><td>Delete track (undo restores)</td></tr>
+          <tr><td>"put operator on drums" / "add reverb to bass"</td><td>Select track + load plugin from browser</td></tr>
+          <tr><td>"add plugin operator"</td><td>Load plugin on currently selected track</td></tr>
+          <tr><td>"refresh tracks"</td><td>Re-read track names into vocabulary</td></tr>
+        </table>
+      </div>
+
+      <div class="cmd-group">
+        <p class="cmd-group-label mono">M2TM CHORD COMPOSING</p>
+        <table class="cmd-table">
+          <tr><td>"make a midi clip on drums scene one, C major G major A minor each one bar"</td><td>Creates clip, types chord syntax, hits Enter</td></tr>
+          <tr><td>"compose C major G major each one bar"</td><td>Builds syntax from chord phrase</td></tr>
+          <tr><td>"a C major chord for one bar then D minor for two bars"</td><td>Per-chord durations</td></tr>
+          <tr><td>"notes C D E G each one beat" / "melody C octave four D E"</td><td>Single-note lines</td></tr>
+          <tr><td>"... then a rest for two beats"</td><td>Rests</td></tr>
+          <tr><td>"C major loud, G major softly"</td><td>Velocity control</td></tr>
+          <tr><td>"smooth ..." / "like a pianist"</td><td>Voice leading (AV LE)</td></tr>
+          <tr><td>"arpeggiate ..." / "strummed ..."</td><td>Arpeggio and strum modes</td></tr>
+          <tr><td>"calibrate"</td><td>Remember M2TM text box position (hover mouse first)</td></tr>
+          <tr><td>"clear text"</td><td>Wipe the M2TM box</td></tr>
+        </table>
+      </div>
+
+    </section>
+
+    <section class="specs-section wrap">
+      <div class="specs-inner">
+        <div>
+          <span class="mono index">SPECS</span>
+          <h2>Details</h2>
+          <table class="spec-table">
+            <tr><td>TYPE</td><td>Python Application</td></tr>
+            <tr><td>REQUIRES</td><td>Python 3.8+, AbletonOSC, Ableton Live 10+</td></tr>
+            <tr><td>PLATFORM</td><td>Windows — macOS planned</td></tr>
+            <tr><td>SPEECH</td><td>Constrained grammar + open vocabulary renaming</td></tr>
+            <tr><td>PROTOCOL</td><td>OSC via AbletonOSC (port 11000)</td></tr>
+            <tr><td>LICENSE</td><td>Free &mdash; unofficial, not affiliated with Ableton AG</td></tr>
+          </table>
+        </div>
+        <div>
+          <span class="mono index">CHANGELOG</span>
+          <h2>&nbsp;</h2>
+          <div class="changelog">
+            <div class="changelog-entry">
+              <div class="changelog-version">
+                <strong>V1.0</strong>
+                <span>2026</span>
+              </div>
+              <ul>
+                <li>Constrained speech recognition — vocabulary locked to known commands + track names</li>
+                <li>Auto-renaming with open vocabulary fallback</li>
+                <li>Hands-free M2TM chord composing</li>
+                <li>Plugin loading via browser automation</li>
+                <li>Live track name sync — vocabulary updates automatically on track rename</li>
+                <li>Minimalist UI: status dot, dim log, highlighted commands</li>
+                <li>"put operator on drums" one-sentence plugin load</li>
+                <li>"seven audio" matching for Live's default track naming</li>
+                <li>Pause/resume mic gate</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <div class="cta-strip">
+    <h2>Say So</h2>
+    <p>Free. Unofficial. Not affiliated with Ableton AG.</p>
+    <div class="cta-buttons">
+      <a class="download-btn" href="#" data-download="Say So" data-platform="mac">
+        <span class="dl-os">Mac</span><span class="dl-fmt mono">Python App — planned</span><span class="dl-arrow">&#8595;</span>
+      </a>
+      <a class="download-btn" href="#" data-download="Say So" data-platform="win">
+        <span class="dl-os">Windows</span><span class="dl-fmt mono">Python App</span><span class="dl-arrow">&#8595;</span>
+      </a>
+    </div>
+  </div>
+
+  <footer style="padding:32px 0; border-top:1px solid var(--border); text-align:center;">
+    <p style="margin:0; font-family:'DM Mono',monospace; font-size:9px; color:var(--dim); letter-spacing:.12em;">
+      &copy; 2026 TECHNICAL DEBT &mdash; <a href="index.html" style="color:var(--dim); text-decoration:none;">ALL PLUGINS</a>
+    </p>
+  </footer>
+
+  <div id="toast"></div>
+  <dialog id="interest-dialog"></dialog>
+  <form id="interest-form" style="display:none"></form>
+  <input id="interest-email" style="display:none">
+  <form id="signup-form" style="display:none"></form>
+  <input id="email" style="display:none">
+  <script src="app.js"></script>
+</body>
+</html>

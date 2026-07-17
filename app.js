@@ -13,6 +13,9 @@ function showToast(message) {
 // To wire up a real file: set href on the <a> to the actual file path, e.g. "assets/kr-12-mac.zip"
 // The data-download attribute holds the product name, data-platform is "mac" or "win"
 const downloads = {
+  "Say So": {
+    win: "",
+  },
   "Keydence": {
     win: "https://github.com/cjdanoy/technical-debt/releases/download/vst/Keydence.vst3",
   },
