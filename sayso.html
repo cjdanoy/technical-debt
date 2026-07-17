@@ -432,7 +432,7 @@
           <div class="plugin-id mono">TD-007</div>
           <h1>Say So</h1>
           <p class="plugin-type">VOICE CONTROL / ABLETON LIVE</p>
-          <p class="plugin-tagline">Talk to your DAW. Say So puts full Ableton Live control on your voice — transport, tempo, tracks, clips, mixing, and hands-free chord composing. Constrained grammar means it only hears what it knows.</p>
+          <p class="plugin-tagline">Talk to your DAW. Say So puts full Ableton Live control on your voice — transport, tempo, tracks, clips, mixing, and hands-free chord composing. Type a correction when it mishears and it learns what you meant. Say "over" to end a command. Say "pause" when you're singing so nothing fires by accident.</p>
           <div class="plugin-status-row">
             <span class="status mono status-available"><i></i> FREE DOWNLOAD</span>
             <span class="plugin-version mono">V1.0 &mdash; WINDOWS</span>
@@ -456,8 +456,8 @@
 
         <div class="feature-card">
           <span class="feature-num mono">01</span>
-          <h3>Constrained Grammar</h3>
-          <p>The recognizer only hears words the app understands — plus your actual track names. "Compose D minor" can no longer come out as "campos de minor." Unknown words become silence instead of wrong guesses.</p>
+          <h3>Constrained Grammar + Learning</h3>
+          <p>The recognizer only hears words it understands — plus your track names. When it mishears, type what you actually said and Say So learns the correction, improving accuracy on your voice over time.</p>
         </div>
 
         <div class="feature-card">
@@ -490,6 +490,12 @@
           <p>Track names are added to the vocabulary automatically whenever they change. Say "seven audio" to match Live's default naming. Say "refresh tracks" to force a re-read if names get out of sync.</p>
         </div>
 
+        <div class="feature-card">
+          <span class="feature-num mono">07</span>
+          <h3>Mic Gate &amp; "Over" Mode</h3>
+          <p>Say "pause" before you sing and Say So stops listening — nothing fires while you perform. Say "resume" to bring it back. Toggle the "wait for over" setting and Say So won't run a command until you say "over", giving you time to finish a longer phrase without accidental triggers.</p>
+        </div>
+
       </div>
     </section>
 
@@ -510,13 +516,21 @@
           <div class="setup-step">
             <span class="setup-step-num mono">02</span>
             <div class="setup-step-body">
+              <h3>Install SaySoBridge</h3>
+              <p>SaySoBridge handles plugin loading without requiring you to type into Ableton's search bar. Install it as a Control Surface alongside AbletonOSC — drop it into <code>Documents\Ableton\User Library\Remote Scripts\</code> and select it in Live's preferences.</p>
+            </div>
+          </div>
+
+          <div class="setup-step">
+            <span class="setup-step-num mono">03</span>
+            <div class="setup-step-body">
               <h3>Install dependencies</h3>
               <p>Open a terminal in the Say So folder and run <code>pip install -r requirements.txt</code>. Requires Python 3.8+.</p>
             </div>
           </div>
 
           <div class="setup-step">
-            <span class="setup-step-num mono">03</span>
+            <span class="setup-step-num mono">04</span>
             <div class="setup-step-body">
               <h3>Run Say So</h3>
               <p>Double-click <code>run.bat</code> — or run <code>python sayso.py</code> from the terminal. The status dot turns green when your mic is active and Ableton is connected.</p>
@@ -524,7 +538,7 @@
           </div>
 
           <div class="setup-step">
-            <span class="setup-step-num mono">04</span>
+            <span class="setup-step-num mono">05</span>
             <div class="setup-step-body">
               <h3>Calibrate M2TM (optional)</h3>
               <p>To use hands-free chord composing, open a clip with the M2TM Notes text box visible, hover your mouse over it, and say <code>calibrate</code>. Remembered across sessions.</p>
@@ -536,7 +550,7 @@
         <div style="display:flex; flex-direction:column; gap:16px;">
           <div class="note-box">
             <strong>NOTE — PLUGIN LOADING</strong>
-            <p>Commands like "put Operator on drums" automate Live's browser (Ctrl+F → first result → Enter). Live must be the frontmost window for this to work. If Live runs as administrator, run <code>run.bat</code> as administrator too.</p>
+            <p>With SaySoBridge installed, commands like "put Operator on drums" load plugins directly without touching the search bar. If Live runs as administrator, run <code>run.bat</code> as administrator too.</p>
           </div>
           <div class="note-box">
             <strong>NOTE — MISHEARING</strong>
@@ -559,6 +573,8 @@
           <tr><td>"tempo one twenty eight" / "tempo up" / "tempo down"</td><td>Set or nudge BPM</td></tr>
           <tr><td>"metronome on/off" / "loop on/off"</td><td>Metronome and loop toggle</td></tr>
           <tr><td>"undo" / "redo"</td><td>Edit history</td></tr>
+          <tr><td>"pause" / "resume"</td><td>Mic gate — stop/start listening (use when singing)</td></tr>
+          <tr><td>"over"</td><td>End of command (when "wait for over" is toggled on)</td></tr>
         </table>
       </div>
 
