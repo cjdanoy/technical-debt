@@ -646,13 +646,23 @@
         </table>
       </div>
 
-      <div style="margin-top:32px; padding:20px 24px; background:var(--surface); border:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; gap:24px;">
-        <div>
-          <p style="margin:0 0 4px; font-family:'DM Mono',monospace; font-size:9px; letter-spacing:.13em; color:var(--teal);">CHEAT SHEET</p>
-          <p style="margin:0; font-size:14px; font-weight:700; color:var(--text);">Say So — Command Reference PDF</p>
-          <p style="margin:4px 0 0; font-size:12px; color:var(--muted);">All commands on one page. Print it or keep it open while you work.</p>
+      <div style="margin-top:32px; display:flex; flex-direction:column; gap:8px;">
+        <div style="padding:20px 24px; background:var(--surface); border:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; gap:24px;">
+          <div>
+            <p style="margin:0 0 4px; font-family:'DM Mono',monospace; font-size:9px; letter-spacing:.13em; color:var(--teal);">CHEAT SHEET</p>
+            <p style="margin:0; font-size:14px; font-weight:700; color:var(--text);">Say So — Command Reference PDF</p>
+            <p style="margin:4px 0 0; font-size:12px; color:var(--muted);">All commands on one page. Print it or keep it open while you work.</p>
+          </div>
+          <a href="assets/SaySo_CheatSheet.pdf" download style="display:inline-flex; align-items:center; gap:10px; padding:12px 20px; background:transparent; border:1px solid var(--teal); color:var(--teal); text-decoration:none; font-family:'DM Mono',monospace; font-size:10px; letter-spacing:.1em; white-space:nowrap; transition:background .15s;" onmouseover="this.style.background='rgba(95,224,212,.1)'" onmouseout="this.style.background='transparent'">DOWNLOAD PDF &#8595;</a>
         </div>
-        <a href="assets/SaySo_CheatSheet.pdf" download style="display:inline-flex; align-items:center; gap:10px; padding:12px 20px; background:transparent; border:1px solid var(--teal); color:var(--teal); text-decoration:none; font-family:'DM Mono',monospace; font-size:10px; letter-spacing:.1em; white-space:nowrap; transition:background .15s;" onmouseover="this.style.background='rgba(95,224,212,.1)'" onmouseout="this.style.background='transparent'">DOWNLOAD PDF &#8595;</a>
+        <div style="padding:20px 24px; background:var(--surface); border:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; gap:24px;">
+          <div>
+            <p style="margin:0 0 4px; font-family:'DM Mono',monospace; font-size:9px; letter-spacing:.13em; color:var(--teal);">AI REFERENCE</p>
+            <p style="margin:0; font-size:14px; font-weight:700; color:var(--text);">Say So — Manifest (for AI troubleshooting)</p>
+            <p style="margin:4px 0 0; font-size:12px; color:var(--muted);">Upload this to an AI assistant for help troubleshooting. Contains the full technical reference — architecture, commands, known limitations, and fixes.</p>
+          </div>
+          <a href="assets/SaySo_Manifest.md" download style="display:inline-flex; align-items:center; gap:10px; padding:12px 20px; background:transparent; border:1px solid var(--border); color:var(--muted); text-decoration:none; font-family:'DM Mono',monospace; font-size:10px; letter-spacing:.1em; white-space:nowrap; transition:all .15s;" onmouseover="this.style.borderColor='var(--teal)';this.style.color='var(--teal)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">DOWNLOAD .MD &#8595;</a>
+        </div>
       </div>
 
     </section>
