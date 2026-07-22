@@ -432,10 +432,10 @@
           <div class="plugin-id mono">TD-007</div>
           <h1>Say So</h1>
           <p class="plugin-type">VOICE CONTROL / ABLETON LIVE</p>
-          <p class="plugin-tagline">Talk to your DAW. Say So puts full Ableton Live control on your voice — transport, tempo, tracks, clips, mixing, and hands-free chord composing. Type a correction when it mishears and it learns what you meant. Say "over" to end a command. Say "pause" when you're singing so nothing fires by accident.</p>
+          <p class="plugin-tagline">Talk to your DAW. Transport, mixer, clips, navigation, markers, routing, chord composing — all on your voice. Runs offline. Nothing you say leaves your computer. Build macros to run multiple commands from one phrase. Ask it questions and it answers.</p>
           <div class="plugin-status-row">
             <span class="status mono status-available"><i></i> FREE DOWNLOAD</span>
-            <span class="plugin-version mono">V1.0 &mdash; WINDOWS</span>
+            <span class="plugin-version mono">V1.0 &mdash; WINDOWS &amp; MACOS</span>
           </div>
           <div class="plugin-downloads">
             <a class="download-btn" href="#" data-download="Say So" data-platform="mac">
@@ -463,7 +463,7 @@
         <div class="feature-card">
           <span class="feature-num mono">02</span>
           <h3>Full Ableton Control</h3>
-          <p>Transport, tempo, metronome, loop, undo, scenes, clips, mute, solo, arm, volume, pan, plugin loading — all on your voice. Works via AbletonOSC running as a Control Surface in Live.</p>
+          <p>Transport, tempo, navigation, loop points, scenes, clips, mixer, sends, master, markers, record/takes, track colors, editing shortcuts — all on your voice. If Live has an API for it, Say So can say it.</p>
         </div>
 
         <div class="feature-card">
@@ -505,7 +505,25 @@
         <div class="feature-card">
           <span class="feature-num mono">09</span>
           <h3>AbletonOSC + SaySoBridge</h3>
-          <p>Under the hood, Say So uses AbletonOSC to send OSC messages directly into Ableton Live — controlling transport, mixer, clips, and more without MIDI or keyboard shortcuts. SaySoBridge sits alongside it as a second Control Surface, handling plugin loading directly through Live's API so nothing has to touch the search bar.</p>
+          <p>Under the hood, Say So uses AbletonOSC to send OSC messages directly into Ableton Live. SaySoBridge sits alongside it as a second Control Surface, handling plugin loading, markers, Capture MIDI, sends/returns, and audio routing — things AbletonOSC doesn't cover.</p>
+        </div>
+
+        <div class="feature-card">
+          <span class="feature-num mono">10</span>
+          <h3>Macros</h3>
+          <p>Build trigger phrases that run multiple commands in sequence. Say "practice mode" and it loops 8 bars and turns the metronome on. Any combination of commands, any trigger phrase you want. Macros are saved and persist across sessions.</p>
+        </div>
+
+        <div class="feature-card">
+          <span class="feature-num mono">11</span>
+          <h3>Ask It Anything</h3>
+          <p>Say So can answer questions about your session. "What's the tempo?" "How many tracks?" "What's armed?" "What bar are we on?" "Read me the tracks." Answers are logged in the app and optionally spoken aloud.</p>
+        </div>
+
+        <div class="feature-card">
+          <span class="feature-num mono">12</span>
+          <h3>Fully Offline &amp; Private</h3>
+          <p>Speech recognition runs locally via Vosk. Nothing you say leaves your computer — no internet connection needed after the one-time model download, no account, no API keys, no subscription. Fast, deterministic, and private.</p>
         </div>
 
       </div>
@@ -568,15 +586,33 @@
     <section class="commands-section wrap">
       <span class="mono index">COMMANDS</span>
       <h2>Voice reference</h2>
+      <p style="margin:-32px 0 40px; font-size:13px; color:var(--muted);">Track commands accept a name ("drums"), a number ("track three"), or Live's default names ("seven audio" = 7-Audio). A command with no track named acts on the current selection.</p>
 
       <div class="cmd-group">
-        <p class="cmd-group-label mono">TRANSPORT &amp; TEMPO</p>
+        <p class="cmd-group-label mono">TRANSPORT &amp; SONG</p>
         <table class="cmd-table">
           <tr><td>"play" / "stop" / "continue"</td><td>Transport controls</td></tr>
           <tr><td>"record on" / "record off"</td><td>Session record toggle</td></tr>
           <tr><td>"tempo one twenty eight" / "tempo up" / "tempo down"</td><td>Set or nudge BPM</td></tr>
-          <tr><td>"metronome on/off" / "loop on/off"</td><td>Metronome and loop toggle</td></tr>
-          <tr><td>"undo" / "redo"</td><td>Edit history</td></tr>
+          <tr><td>"double time" / "half time"</td><td>Double or halve the tempo</td></tr>
+          <tr><td>"set time to six eight"</td><td>Change time signature</td></tr>
+          <tr><td>"metronome on/off" / "loop on/off"</td><td>Click track and loop toggles</td></tr>
+          <tr><td>"link on/off" / "link sync on"</td><td>Ableton Link</td></tr>
+          <tr><td>"undo" / "redo" / "undo five times" / "undo everything"</td><td>Edit history</td></tr>
+        </table>
+      </div>
+
+      <div class="cmd-group">
+        <p class="cmd-group-label mono">NAVIGATION &amp; LOOP</p>
+        <table class="cmd-table">
+          <tr><td>"go to bar sixteen"</td><td>Jump to a bar number</td></tr>
+          <tr><td>"back four bars" / "forward two bars"</td><td>Relative navigation</td></tr>
+          <tr><td>"jump to start"</td><td>Return to bar 1</td></tr>
+          <tr><td>"loop from bar four to bar eight"</td><td>Set loop start and end</td></tr>
+          <tr><td>"loop eight bars"</td><td>Loop from current position</td></tr>
+          <tr><td>"loop off" / "double the loop" / "halve the loop"</td><td>Loop adjustments</td></tr>
+          <tr><td>"launch quantize to one bar" / "free launch"</td><td>Clip launch quantization</td></tr>
+          <tr><td>"follow"</td><td>Toggle follow playhead</td></tr>
         </table>
       </div>
 
@@ -584,21 +620,23 @@
         <p class="cmd-group-label mono">SCENES &amp; CLIPS</p>
         <table class="cmd-table">
           <tr><td>"launch scene three" / "next scene" / "previous scene"</td><td>Scene navigation and launch</td></tr>
+          <tr><td>"new scene" / "duplicate this scene" / "name this scene verse"</td><td>Create, copy, or name scenes</td></tr>
           <tr><td>"fire clip two on drums"</td><td>Launch a clip by index on a named track</td></tr>
-          <tr><td>"stop all clips"</td><td>Stop all running clips</td></tr>
-          <tr><td>"delete clip two on drums"</td><td>Remove a clip</td></tr>
+          <tr><td>"stop all clips" / "stop drums" / "stop clips on keys"</td><td>Stop clips globally or per-track</td></tr>
+          <tr><td>"delete clip two on drums" / "delete this clip" / "delete this scene"</td><td>Remove clips and scenes</td></tr>
+          <tr><td>"name clip main riff" / "name this clip"</td><td>Name a clip</td></tr>
         </table>
       </div>
 
       <div class="cmd-group">
         <p class="cmd-group-label mono">MIXER</p>
         <table class="cmd-table">
-          <tr><td>"mute drums" / "unmute bass"</td><td>Mute / unmute by track name or "track three"</td></tr>
-          <tr><td>"solo drums" / "unsolo drums"</td><td>Solo toggle</td></tr>
-          <tr><td>"arm drums" / "disarm drums"</td><td>Record arm toggle</td></tr>
-          <tr><td>"volume up on bass" / "set volume fifty on drums"</td><td>Fader control (85 = 0 dB)</td></tr>
-          <tr><td>"pan left on keys" / "pan center on drums"</td><td>Panning</td></tr>
-          <tr><td>"select drums"</td><td>Select track</td></tr>
+          <tr><td>"mute drums" / "unmute bass" / "mute everything but drums"</td><td>Mute / unmute</td></tr>
+          <tr><td>"solo drums" / "unsolo all" / "solo drums and bass" / "solo everything except keys"</td><td>Solo</td></tr>
+          <tr><td>"arm drums" / "disarm everything" / "arm only drums"</td><td>Record arm</td></tr>
+          <tr><td>"volume up on bass" / "volume down track three" / "reset volume"</td><td>Nudge or reset fader</td></tr>
+          <tr><td>"set volume fifty on keys"</td><td>Set fader level (85 = 0 dB)</td></tr>
+          <tr><td>"pan left / right / center on keys"</td><td>Panning</td></tr>
           <tr><td>"monitor off / auto / in on track two"</td><td>Monitoring state</td></tr>
           <tr><td>"input from ext in on track two"</td><td>Input routing (experimental)</td></tr>
           <tr><td>"audio to master on drums"</td><td>Output routing (experimental)</td></tr>
@@ -606,43 +644,124 @@
       </div>
 
       <div class="cmd-group">
-        <p class="cmd-group-label mono">APP CONTROL</p>
+        <p class="cmd-group-label mono">SELECTION</p>
         <table class="cmd-table">
-          <tr><td>"pause" / "resume"</td><td>Mic gate — stop/start listening (use when singing)</td></tr>
-          <tr><td>"over"</td><td>End of command (when "wait for over" is toggled on)</td></tr>
-          <tr><td>"type it"</td><td>Type composed M2TM syntax into the box and hit Enter</td></tr>
-          <tr><td>"clear text"</td><td>Wipe the M2TM text box</td></tr>
-          <tr><td>"calibrate"</td><td>Remember M2TM box position (hover mouse over it first)</td></tr>
+          <tr><td>"select drums" / "select track two"</td><td>Select a single track</td></tr>
+          <tr><td>"select tracks two, three and four"</td><td>Multi-track selection</td></tr>
+          <tr><td>"select master" / "select send a"</td><td>Select master or return tracks</td></tr>
+          <tr><td>"deselect" / "select none"</td><td>Clear selection</td></tr>
+        </table>
+      </div>
+
+      <div class="cmd-group">
+        <p class="cmd-group-label mono">SENDS &amp; MASTER</p>
+        <table class="cmd-table">
+          <tr><td>"select send a" / "select the reverb return"</td><td>Select a return track by slot or name</td></tr>
+          <tr><td>"mute send b" / "solo the reverb send"</td><td>Mute or solo a send</td></tr>
+          <tr><td>"turn down the master" / "set master to fifty" / "master up"</td><td>Master fader</td></tr>
+          <tr><td>"audio from track five"</td><td>Set selected track's input to another track</td></tr>
+        </table>
+      </div>
+
+      <div class="cmd-group">
+        <p class="cmd-group-label mono">TRACKS &amp; DEVICES</p>
+        <table class="cmd-table">
+          <tr><td>"new audio track" / "new midi track"</td><td>Create a track</td></tr>
+          <tr><td>"rename drums" → say any name (or "cancel")</td><td>Two-step rename, open vocabulary</td></tr>
+          <tr><td>"rename track one to bass"</td><td>One-shot rename</td></tr>
+          <tr><td>"delete track three"</td><td>Delete track ("undo" restores it)</td></tr>
+          <tr><td>"make drums blue" / "color blue" / "make them red"</td><td>Track color (17 colors)</td></tr>
+          <tr><td>"put operator on drums" / "add reverb to bass"</td><td>Select track + load plugin</td></tr>
+          <tr><td>"add plugin serum"</td><td>Load plugin onto selected track</td></tr>
+          <tr><td>"bypass reverb on drums" / "enable reverb on drums"</td><td>Enable/disable a device</td></tr>
+          <tr><td>"remove reverb from drums" / "list devices on drums"</td><td>Delete device or read device chain</td></tr>
           <tr><td>"refresh tracks"</td><td>Re-read track names from Live</td></tr>
         </table>
       </div>
 
       <div class="cmd-group">
-        <p class="cmd-group-label mono">TRACKS &amp; PLUGINS</p>
+        <p class="cmd-group-label mono">RECORD &amp; TAKES</p>
         <table class="cmd-table">
-          <tr><td>"new audio track" / "new midi track"</td><td>Create track</td></tr>
-          <tr><td>"rename drums" → say any name</td><td>Two-step rename, open vocabulary</td></tr>
-          <tr><td>"rename drums to synth bass"</td><td>One-shot rename for common words</td></tr>
-          <tr><td>"delete track drums"</td><td>Delete track (undo restores)</td></tr>
-          <tr><td>"put operator on drums" / "add reverb to bass"</td><td>Select track + load plugin from browser</td></tr>
-          <tr><td>"add plugin operator"</td><td>Load plugin on currently selected track</td></tr>
-          <tr><td>"refresh tracks"</td><td>Re-read track names into vocabulary</td></tr>
+          <tr><td>"arrangement record on/off" / "automation on/off"</td><td>Arrangement recording and automation</td></tr>
+          <tr><td>"re-enable automation"</td><td>Re-enable automation after override</td></tr>
+          <tr><td>"capture that" / "capture and make a scene"</td><td>Capture MIDI (requires SaySoBridge)</td></tr>
+          <tr><td>"redo take" / "scrap the take"</td><td>Delete the last clip and re-record</td></tr>
+          <tr><td>"keep that"</td><td>Confirm and keep the current take</td></tr>
+        </table>
+      </div>
+
+      <div class="cmd-group">
+        <p class="cmd-group-label mono">MARKERS (requires SaySoBridge)</p>
+        <table class="cmd-table">
+          <tr><td>"drop a marker" / "drop a marker called chorus"</td><td>Place a marker at the playhead</td></tr>
+          <tr><td>"mark this the drop" / "name this marker verse"</td><td>Name a marker</td></tr>
+          <tr><td>"next marker" / "previous marker"</td><td>Jump between markers</td></tr>
+          <tr><td>"go to the chorus" / "go to marker two"</td><td>Jump to a named or numbered marker</td></tr>
+          <tr><td>"delete this marker" / "delete marker three"</td><td>Remove a marker</td></tr>
+        </table>
+      </div>
+
+      <div class="cmd-group">
+        <p class="cmd-group-label mono">EDITING</p>
+        <table class="cmd-table">
+          <tr><td>"split at playhead" / "consolidate" / "duplicate this clip"</td><td>Clip editing (Live must be focused)</td></tr>
+          <tr><td>"quantize"</td><td>Quantize selected clip</td></tr>
+          <tr><td>"group"</td><td>Group current Live selection (select tracks in Live first)</td></tr>
+          <tr><td>"session view" / "arrangement view"</td><td>Switch views</td></tr>
+          <tr><td>"save"</td><td>Save the Live set</td></tr>
+        </table>
+      </div>
+
+      <div class="cmd-group">
+        <p class="cmd-group-label mono">ASK</p>
+        <table class="cmd-table">
+          <tr><td>"what's the tempo" / "what's the time signature"</td><td>Session info</td></tr>
+          <tr><td>"how many tracks" / "how many scenes" / "read me the tracks"</td><td>Count or list tracks and scenes</td></tr>
+          <tr><td>"what's selected" / "what's on this track"</td><td>Current selection and device chain</td></tr>
+          <tr><td>"what's armed" / "what's soloed" / "what's muted"</td><td>Mixer state readout</td></tr>
+          <tr><td>"what bar are we on" / "is it playing" / "what are the sends"</td><td>Playback and routing info</td></tr>
+        </table>
+      </div>
+
+      <div class="cmd-group">
+        <p class="cmd-group-label mono">MACROS &amp; FUN</p>
+        <table class="cmd-table">
+          <tr><td>Open Macros window → set trigger phrase + command list</td><td>Run multiple commands from one phrase</td></tr>
+          <tr><td>"panic"</td><td>Stop transport + kill all clips + disarm everything</td></tr>
+          <tr><td>"again"</td><td>Repeat the last command</td></tr>
+          <tr><td>"surprise me"</td><td>Random color on the selected track</td></tr>
+        </table>
+      </div>
+
+      <div class="cmd-group">
+        <p class="cmd-group-label mono">APP CONTROL</p>
+        <table class="cmd-table">
+          <tr><td>"pause" / "resume"</td><td>Mic gate — stop/start listening (say before recording vocals)</td></tr>
+          <tr><td>"over"</td><td>End of command (when "wait for over" is toggled on in settings)</td></tr>
+          <tr><td>"calibrate"</td><td>Remember M2TM text box position (hover mouse over it first)</td></tr>
+          <tr><td>"type it"</td><td>Type composed M2TM syntax into the box and hit Enter</td></tr>
+          <tr><td>"clear text"</td><td>Wipe the M2TM text box</td></tr>
         </table>
       </div>
 
       <div class="cmd-group">
         <p class="cmd-group-label mono">M2TM CHORD COMPOSING</p>
         <table class="cmd-table">
-          <tr><td>"make a midi clip on drums scene one, C major G major A minor each one bar"</td><td>Creates clip, types chord syntax, hits Enter</td></tr>
-          <tr><td>"compose C major G major each one bar"</td><td>Builds syntax from chord phrase</td></tr>
+          <tr><td>"make a midi clip on drums scene one, C major G major A minor each one bar"</td><td>Creates clip, types syntax, hits Enter — fully hands-free</td></tr>
+          <tr><td>"compose C major, D minor seven, G seven"</td><td>Any chord progression</td></tr>
+          <tr><td>"... each one bar" / "... each two beats"</td><td>Duration for all chords</td></tr>
           <tr><td>"a C major chord for one bar then D minor for two bars"</td><td>Per-chord durations</td></tr>
-          <tr><td>"notes C D E G each one beat" / "melody C octave four D E"</td><td>Single-note lines</td></tr>
+          <tr><td>"... each dotted quarter" / "in triplets" / "C major four times"</td><td>Rhythm variants and repeats</td></tr>
+          <tr><td>"notes C D E G each one beat" / "melody C octave four D E"</td><td>Single-note lines with octave control</td></tr>
           <tr><td>"... then a rest for two beats"</td><td>Rests</td></tr>
-          <tr><td>"C major loud, G major softly"</td><td>Velocity control</td></tr>
-          <tr><td>"smooth ..." / "like a pianist"</td><td>Voice leading (AV LE)</td></tr>
-          <tr><td>"arpeggiate ..." / "strummed ..."</td><td>Arpeggio and strum modes</td></tr>
-          <tr><td>"calibrate"</td><td>Remember M2TM text box position (hover mouse first)</td></tr>
-          <tr><td>"clear text"</td><td>Wipe the M2TM box</td></tr>
+          <tr><td>"C major loud, G major softly"</td><td>Velocity (also "very loud" / "very softly")</td></tr>
+          <tr><td>"smooth ..." / "like a pianist"</td><td>Pianist voicings with voice leading</td></tr>
+          <tr><td>"C major over G"</td><td>Slash chord / bass note</td></tr>
+          <tr><td>"in the key of D major ..."</td><td>Key signature</td></tr>
+          <tr><td>"strummed C major G major" / "... slowly" / "strummed up"</td><td>Guitar-style strum feel and direction</td></tr>
+          <tr><td>"arpeggiate C major seven" / "... down" / "up and down" / "random"</td><td>Arpeggio with direction</td></tr>
+          <tr><td>"... in eighths" / "... over two octaves"</td><td>Arp speed and range</td></tr>
+          <tr><td colspan="2" style="color:var(--dim); font-size:11px; padding-top:10px; font-family:'DM Mono',monospace; letter-spacing:.06em;">Chord qualities: major · minor · seven · major seven · minor seven · dominant seven · minor nine · nine · six · sus two/four · diminished · augmented · add nine · half diminished · power + sharp/flat</td></tr>
         </table>
       </div>
 
@@ -673,11 +792,12 @@
           <span class="mono index">SPECS</span>
           <h2>Details</h2>
           <table class="spec-table">
-            <tr><td>TYPE</td><td>Windows Application (.exe)</td></tr>
-            <tr><td>REQUIRES</td><td>AbletonOSC, SaySoBridge, Ableton Live 10+</td></tr>
-            <tr><td>PLATFORM</td><td>Windows — macOS planned</td></tr>
-            <tr><td>SPEECH</td><td>Constrained grammar + open vocabulary renaming</td></tr>
-            <tr><td>PROTOCOL</td><td>OSC via AbletonOSC (port 11000)</td></tr>
+            <tr><td>TYPE</td><td>Standalone Application (.exe / .app)</td></tr>
+            <tr><td>REQUIRES</td><td>AbletonOSC + SaySoBridge (both free), Ableton Live 10+</td></tr>
+            <tr><td>PLATFORM</td><td>Windows &amp; macOS</td></tr>
+            <tr><td>SPEECH</td><td>Local Vosk model — offline, no account, no internet after first run</td></tr>
+            <tr><td>PROTOCOL</td><td>OSC via AbletonOSC (port 11000) + SaySoBridge (port 11002)</td></tr>
+            <tr><td>PRIVACY</td><td>Nothing you say leaves your computer</td></tr>
             <tr><td>LICENSE</td><td>Free &mdash; unofficial, not affiliated with Ableton AG</td></tr>
           </table>
         </div>
