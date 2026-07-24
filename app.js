@@ -14,7 +14,7 @@ function showToast(message) {
 // The data-download attribute holds the product name, data-platform is "mac" or "win"
 const downloads = {
   "Say So": {
-    win: "https://github.com/cjdanoy/technical-debt/releases/download/SaySo/SaySo.exe",
+    win: "https://github.com/cjdanoy/technical-debt/releases/download/SaySo/Say.So.zip",
   },
   "Keydence": {
     win: "https://github.com/cjdanoy/technical-debt/releases/download/vst/Keydence.vst3",
