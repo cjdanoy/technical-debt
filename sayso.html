@@ -434,8 +434,8 @@
           <p class="plugin-type">VOICE CONTROL / ABLETON LIVE</p>
           <p class="plugin-tagline">Talk to your DAW. Transport, mixer, clips, navigation, markers, routing, chord composing — all on your voice. Runs offline. Nothing you say leaves your computer. Build macros to run multiple commands from one phrase. Ask it questions and it answers.</p>
           <div class="plugin-status-row">
-            <span class="status mono status-available"><i></i> FREE DOWNLOAD</span>
-            <span class="plugin-version mono">V1.0 &mdash; WINDOWS &amp; MACOS</span>
+            <span class="status mono"><i></i> EARLY ACCESS</span>
+            <span class="plugin-version mono">V0.6 &mdash; WINDOWS &amp; MACOS</span>
           </div>
           <div class="plugin-downloads">
             <a class="download-btn" href="#" data-download="Say So" data-platform="mac">
@@ -539,7 +539,7 @@
             <span class="setup-step-num mono">01</span>
             <div class="setup-step-body">
               <h3>Install AbletonOSC</h3>
-              <p>Download <a href="https://github.com/ideoforms/AbletonOSC" style="color:var(--teal)">AbletonOSC</a> and drop it into <code>Documents\Ableton\User Library\Remote Scripts\</code>. In Live's preferences, select it as a Control Surface and restart Live.</p>
+              <p>Download <a href="https://github.com/ideoforms/AbletonOSC" style="color:var(--teal)">AbletonOSC</a> and drop it into your Remote Scripts folder. In Live: Preferences → Link/Tempo/MIDI → set a Control Surface slot to "AbletonOSC".<br><br>Windows: <code>Documents\Ableton\User Library\Remote Scripts\</code><br>macOS: <code>~/Music/Ableton/User Library/Remote Scripts/</code></p>
             </div>
           </div>
 
@@ -547,15 +547,15 @@
             <span class="setup-step-num mono">02</span>
             <div class="setup-step-body">
               <h3>Install SaySoBridge</h3>
-              <p>SaySoBridge handles plugin loading directly through Live's API. Drop it into <code>Documents\Ableton\User Library\Remote Scripts\</code> and select it as a second Control Surface alongside AbletonOSC in Live's preferences.</p>
+              <p>SaySoBridge ships inside the Say So download. Drop the <code>SaySoBridge</code> folder into the same Remote Scripts folder as AbletonOSC, then set a SECOND Control Surface slot to "SaySoBridge". Restart Live. Required for plugin loading, markers, Capture MIDI, and sends.</p>
             </div>
           </div>
 
           <div class="setup-step">
             <span class="setup-step-num mono">03</span>
             <div class="setup-step-body">
-              <h3>Run SaySo.exe</h3>
-              <p>Double-click <code>SaySo.exe</code>. The first run will download the speech model automatically — this takes a moment. The status dot turns green when your mic is active and Ableton is connected. No Python required.</p>
+              <h3>Run Say So</h3>
+              <p>Double-click <code>SaySo.exe</code> (Windows) or <code>SaySo.app</code> (macOS). The first run downloads a ~128 MB speech model automatically — one time only. The window shows "connected | [bpm] | [n] tracks" when it finds Live.</p>
             </div>
           </div>
 
@@ -571,8 +571,8 @@
 
         <div style="display:flex; flex-direction:column; gap:16px;">
           <div class="note-box">
-            <strong>NOTE — PLUGIN LOADING</strong>
-            <p>With SaySoBridge installed, commands like "put Operator on drums" load plugins directly without touching the search bar. If Live runs as administrator, run <code>SaySo.exe</code> as administrator too.</p>
+            <strong>NOTE — PLUGIN LOADING &amp; KEYSTROKE FEATURES</strong>
+            <p>With SaySoBridge installed, "put Operator on drums" loads plugins directly. Keystroke features (M2TM typing, split, consolidate, save) require Live to be the active window. On macOS, grant Accessibility permission in System Settings → Privacy &amp; Security. On Windows, if Live runs as admin, run Say So as admin too.</p>
           </div>
           <div class="note-box">
             <strong>NOTE — MISHEARING</strong>
@@ -807,19 +807,23 @@
           <div class="changelog">
             <div class="changelog-entry">
               <div class="changelog-version">
-                <strong>V1.0</strong>
-                <span>2026</span>
+                <strong>V0.6</strong>
+                <span>EARLY ACCESS — 2026</span>
               </div>
               <ul>
                 <li>Constrained speech recognition — vocabulary locked to known commands + track names</li>
+                <li>Type-to-teach: type a correction and Say So learns it permanently</li>
+                <li>Full transport, mixer, navigation, loop, scenes, clips, and marker control</li>
+                <li>Multi-track selection ("select tracks two, three and four")</li>
+                <li>Record/takes: capture MIDI, redo take, scrap take</li>
+                <li>Macros — trigger phrases that run multiple commands in sequence</li>
+                <li>Ask commands — spoken answers logged and optionally read aloud</li>
                 <li>Auto-renaming with open vocabulary fallback</li>
-                <li>Hands-free M2TM chord composing</li>
-                <li>Plugin loading via browser automation</li>
-                <li>Live track name sync — vocabulary updates automatically on track rename</li>
-                <li>Minimalist UI: status dot, dim log, highlighted commands</li>
-                <li>"put operator on drums" one-sentence plugin load</li>
-                <li>"seven audio" matching for Live's default track naming</li>
-                <li>Pause/resume mic gate</li>
+                <li>Hands-free M2TM chord and melody composing</li>
+                <li>Plugin loading via SaySoBridge (no search bar required)</li>
+                <li>Pause/resume mic gate + "wait for over" mode</li>
+                <li>5 accessible UI themes (Dark, Midnight, Light, High Contrast, Warm)</li>
+                <li>Windows &amp; macOS</li>
               </ul>
             </div>
           </div>
@@ -831,7 +835,7 @@
 
   <div class="cta-strip">
     <h2>Say So</h2>
-    <p>Free. Unofficial. Not affiliated with Ableton AG.</p>
+    <p>V0.6 Early Access — Free. Unofficial. Not affiliated with Ableton AG.</p>
     <div class="cta-buttons">
       <a class="download-btn" href="#" data-download="Say So" data-platform="mac">
         <span class="dl-os">Mac</span><span class="dl-fmt mono">macOS — planned</span><span class="dl-arrow">&#8595;</span>
