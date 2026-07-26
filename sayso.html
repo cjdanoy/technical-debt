@@ -113,6 +113,33 @@
       padding: 16px 18px;
     }
 
+    /* ── Media section ── */
+    .media-section {
+      padding-block: 80px;
+      border-bottom: 1px solid var(--border);
+    }
+    .video-block h2 {
+      margin: 0 0 20px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      color: var(--muted);
+    }
+    .video-embed {
+      position: relative;
+      aspect-ratio: 16/9;
+      background: #080a10;
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+    .video-embed iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
     /* ── Setup section ── */
     .setup-section {
       padding-block: 100px;
@@ -450,6 +477,20 @@
             <p style="margin:0; font-family:'DM Mono',monospace; font-size:9px; letter-spacing:.1em; color:#ffa032;">WINDOWS SMARTSCREEN WARNING</p>
             <p style="margin:6px 0 0; font-size:12px; line-height:1.6; color:var(--muted);">Windows may flag this as unrecognized. Say So is safe — it's unsigned because code signing certificates cost money and this is free software. To run it: click <strong style="color:var(--text);">More info</strong> → <strong style="color:var(--text);">Run anyway</strong>. Or right-click the .exe → Properties → check <strong style="color:var(--text);">Unblock</strong>.</p>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="media-section wrap">
+      <div class="video-block">
+        <h2 class="mono">VIDEO DEMO</h2>
+        <div class="video-embed">
+          <iframe
+            src="https://www.youtube.com/embed/ThUG5Byj9nk?rel=0&modestbranding=1&start=9"
+            title="Say So demo"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen>
+          </iframe>
         </div>
       </div>
     </section>
