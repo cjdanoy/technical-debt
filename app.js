@@ -16,7 +16,7 @@ const downloads = {
   "Say So": {
     win: "https://github.com/cjdanoy/technical-debt/releases/download/SaySo/Say.So.zip",
   },
-  "Keydence": {
+  "WASDaug": {
     win: "https://github.com/cjdanoy/technical-debt/releases/download/vst/Keydence.vst3",
   },
   "Dank Machine XT": {

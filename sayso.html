@@ -462,7 +462,7 @@
           <p class="plugin-tagline">Talk to your DAW. Transport, mixer, clips, navigation, markers, routing, chord composing — all on your voice. Runs offline. Nothing you say leaves your computer. Build macros to run multiple commands from one phrase. Ask it questions and it answers.</p>
           <div class="plugin-status-row">
             <span class="status mono"><i></i> EARLY ACCESS</span>
-            <span class="plugin-version mono">V0.6 &mdash; WINDOWS &amp; MACOS</span>
+            <span class="plugin-version mono">V1.0.0 &mdash; WINDOWS &amp; MACOS</span>
           </div>
           <div class="plugin-downloads">
             <a class="download-btn" href="#" data-download="Say So" data-platform="mac">
@@ -538,8 +538,8 @@
 
         <div class="feature-card">
           <span class="feature-num mono">07</span>
-          <h3>Mic Gate &amp; "Over" Mode</h3>
-          <p>Say "pause" before you sing and Say So stops listening — nothing fires while you perform. Say "resume" to bring it back. Toggle the "wait for over" setting and Say So won't run a command until you say "over", giving you time to finish a longer phrase without accidental triggers.</p>
+          <h3>Mic Gate &amp; Hold Mode</h3>
+          <p>Say "pause say so" (or "bye computer") before you sing and Say So stops listening — a descending audio cue confirms. Say "resume say so" or "hey computer" to bring it back. Toggle "wait for please" in settings and Say So buffers your words until you say "please" (or "over"/"done"/"finished"), giving you time to finish a longer phrase without accidental triggers.</p>
         </div>
 
         <div class="feature-card">
@@ -551,7 +551,7 @@
         <div class="feature-card">
           <span class="feature-num mono">09</span>
           <h3>AbletonOSC + SaySoBridge</h3>
-          <p>Under the hood, Say So uses AbletonOSC to send OSC messages directly into Ableton Live. SaySoBridge sits alongside it as a second Control Surface, handling plugin loading, markers, Capture MIDI, sends/returns, and audio routing — things AbletonOSC doesn't cover.</p>
+          <p>Say So uses AbletonOSC (UDP 11000) to send commands into Live. SaySoBridge (UDP 11002) is a second Control Surface that handles plugin loading, markers, Capture MIDI, sends/returns, and audio routing. A parallel keyword spotter runs alongside the main model so "play" and "stop" fire near-instantly even if the main recognizer mishears them.</p>
         </div>
 
         <div class="feature-card">
@@ -601,7 +601,7 @@
             <span class="setup-step-num mono">03</span>
             <div class="setup-step-body">
               <h3>Run Say So</h3>
-              <p>Double-click <code>SaySo.exe</code> (Windows) or <code>SaySo.app</code> (macOS). The first run downloads a ~128 MB speech model automatically — one time only. The window shows "connected | [bpm] | [n] tracks" when it finds Live.</p>
+              <p>Double-click <code>SaySo.exe</code> (Windows) or <code>SaySo.app</code> (macOS). The first run downloads the Turbo speech model (~40 MB) automatically — one time only. The window shows download progress, then "connected | [bpm] | [n] tracks" when it finds Live. The model size can be changed to Balanced (~128 MB) or Accurate (~1.8 GB) in Settings.</p>
             </div>
           </div>
 
@@ -637,14 +637,16 @@
       <div class="cmd-group">
         <p class="cmd-group-label mono">TRANSPORT &amp; SONG</p>
         <table class="cmd-table">
-          <tr><td>"play" / "stop" / "continue"</td><td>Transport controls</td></tr>
-          <tr><td>"record on" / "record off"</td><td>Session record toggle</td></tr>
+          <tr><td>"play" / "stop" / "continue"</td><td>Transport — only the exact word fires (singing won't trigger)</td></tr>
+          <tr><td>"record"</td><td>Starts a take — say "stop" to end it (not a toggle)</td></tr>
           <tr><td>"tempo one twenty eight" / "tempo up" / "tempo down"</td><td>Set or nudge BPM</td></tr>
           <tr><td>"double time" / "half time"</td><td>Double or halve the tempo</td></tr>
           <tr><td>"set time to six eight"</td><td>Change time signature</td></tr>
-          <tr><td>"metronome on/off" / "loop on/off"</td><td>Click track and loop toggles</td></tr>
+          <tr><td>"metronome"</td><td>Toggle on↔off (uses Live's real state). Say "metronome on/off" to be explicit</td></tr>
+          <tr><td>"loop on" / "loop off"</td><td>Loop toggle — not a bare toggle, always say on or off</td></tr>
           <tr><td>"link on/off" / "link sync on"</td><td>Ableton Link</td></tr>
           <tr><td>"undo" / "redo" / "undo five times" / "undo everything"</td><td>Edit history</td></tr>
+          <tr><td>"metronome off play"</td><td>Command chaining — runs both in sequence</td></tr>
         </table>
       </div>
 
@@ -663,11 +665,30 @@
       </div>
 
       <div class="cmd-group">
-        <p class="cmd-group-label mono">SCENES &amp; CLIPS</p>
+        <p class="cmd-group-label mono">NAVIGATE CLIPS &amp; SCENES (NOTHING PLAYS)</p>
         <table class="cmd-table">
-          <tr><td>"launch scene three" / "next scene" / "previous scene"</td><td>Scene navigation and launch</td></tr>
+          <tr><td>"next clip" / "previous clip" / "clip up" / "clip down"</td><td>Move the highlighted clip slot up/down — use to line up a slot for recording</td></tr>
+          <tr><td>"next scene" / "previous scene" / "go to scene 5"</td><td>Move the selected row — does NOT launch playback</td></tr>
+        </table>
+      </div>
+
+      <div class="cmd-group">
+        <p class="cmd-group-label mono">FIRE CLIPS &amp; SCENES (THESE LAUNCH PLAYBACK)</p>
+        <table class="cmd-table">
+          <tr><td>"fire clip" / "fire this clip"</td><td>Fire the ONE clip you're currently on</td></tr>
+          <tr><td>"fire all clips" / "fire the row"</td><td>Fire the whole row (launches the scene)</td></tr>
+          <tr><td>"fire this scene" / "launch scene three" / "fire scene 4"</td><td>Fire a scene row by name or number</td></tr>
+          <tr><td>"fire next scene" / "fire previous scene"</td><td>Move a row then fire it</td></tr>
+          <tr><td>"fire clip two on drums"</td><td>Fire one specific clip on a named track</td></tr>
+          <tr><td>"go to next scene and fire clips"</td><td>Move a row + fire the clip on current track</td></tr>
+          <tr><td>"go next and fire all clips"</td><td>Move a row + fire the whole row</td></tr>
+        </table>
+      </div>
+
+      <div class="cmd-group">
+        <p class="cmd-group-label mono">SCENES &amp; CLIPS — OTHER</p>
+        <table class="cmd-table">
           <tr><td>"new scene" / "duplicate this scene" / "name this scene verse"</td><td>Create, copy, or name scenes</td></tr>
-          <tr><td>"fire clip two on drums"</td><td>Launch a clip by index on a named track</td></tr>
           <tr><td>"stop all clips" / "stop drums" / "stop clips on keys"</td><td>Stop clips globally or per-track</td></tr>
           <tr><td>"delete clip two on drums" / "delete this clip" / "delete this scene"</td><td>Remove clips and scenes</td></tr>
           <tr><td>"name clip main riff" / "name this clip"</td><td>Name a clip</td></tr>
@@ -677,9 +698,14 @@
       <div class="cmd-group">
         <p class="cmd-group-label mono">MIXER</p>
         <table class="cmd-table">
-          <tr><td>"mute drums" / "unmute bass" / "mute everything but drums"</td><td>Mute / unmute</td></tr>
-          <tr><td>"solo drums" / "unsolo all" / "solo drums and bass" / "solo everything except keys"</td><td>Solo</td></tr>
-          <tr><td>"arm drums" / "disarm everything" / "arm only drums"</td><td>Record arm</td></tr>
+          <tr><td>"mute" / "unmute" [track]</td><td>Not a toggle — "mute" always mutes, "unmute" unmutes. No name = acts on whole selection</td></tr>
+          <tr><td>"mute everything but drums"</td><td>Inverse mute</td></tr>
+          <tr><td>"solo" [track]</td><td>Exclusive — solos ONLY the selection and clears all other solos. "unsolo" / "unsolo all" turn off</td></tr>
+          <tr><td>"solo drums and bass" / "solo everything except keys"</td><td>Multi-track solo</td></tr>
+          <tr><td>"arm" [track]</td><td>Exclusive — arms the selection and disarms everything else</td></tr>
+          <tr><td>"arm drums and bass" / "arm 1 2 3"</td><td>Arm several tracks</td></tr>
+          <tr><td>"arm all" / "solo all" / "mute all"</td><td>Act on every track</td></tr>
+          <tr><td>"arm none" / "unsolo all" / "disarm all"</td><td>Turn everything off</td></tr>
           <tr><td>"volume up on bass" / "volume down track three" / "reset volume"</td><td>Nudge or reset fader</td></tr>
           <tr><td>"set volume fifty on keys"</td><td>Set fader level (85 = 0 dB)</td></tr>
           <tr><td>"pan left / right / center on keys"</td><td>Panning</td></tr>
@@ -693,7 +719,12 @@
         <p class="cmd-group-label mono">SELECTION</p>
         <table class="cmd-table">
           <tr><td>"select drums" / "select track two"</td><td>Select a single track</td></tr>
-          <tr><td>"select tracks two, three and four"</td><td>Multi-track selection</td></tr>
+          <tr><td>"select tracks two, three and four"</td><td>Multi-track selection in one breath</td></tr>
+          <tr><td>"select track" → then say numbers across pauses</td><td>Capture mode — lists over pauses, "and" before the last ends it instantly</td></tr>
+          <tr><td>"include bass" / "also select keys"</td><td>Add one track to the current selection</td></tr>
+          <tr><td>"deselect bass" / "exclude drums"</td><td>Remove one track from the selection</td></tr>
+          <tr><td>"next track" / "previous track"</td><td>Move selection up or down one track</td></tr>
+          <tr><td>"go to clip three"</td><td>Select that clip slot on the current track</td></tr>
           <tr><td>"select master" / "select send a"</td><td>Select master or return tracks</td></tr>
           <tr><td>"deselect" / "select none"</td><td>Clear selection</td></tr>
         </table>
@@ -712,13 +743,15 @@
       <div class="cmd-group">
         <p class="cmd-group-label mono">TRACKS &amp; DEVICES</p>
         <table class="cmd-table">
-          <tr><td>"new audio track" / "new midi track"</td><td>Create a track</td></tr>
+          <tr><td>"new audio track" / "new midi track"</td><td>Create a track (auto-refreshes track list)</td></tr>
           <tr><td>"rename drums" → say any name (or "cancel")</td><td>Two-step rename, open vocabulary</td></tr>
           <tr><td>"rename track one to bass"</td><td>One-shot rename</td></tr>
           <tr><td>"delete track three"</td><td>Delete track ("undo" restores it)</td></tr>
-          <tr><td>"make drums blue" / "color blue" / "make them red"</td><td>Track color (17 colors)</td></tr>
-          <tr><td>"put operator on drums" / "add reverb to bass"</td><td>Select track + load plugin</td></tr>
-          <tr><td>"add plugin serum"</td><td>Load plugin onto selected track</td></tr>
+          <tr><td>"change color to blue" / "set this track's color to red"</td><td>Color the current selection (17 colors)</td></tr>
+          <tr><td>"change color drums to blue"</td><td>Color a named track</td></tr>
+          <tr><td>"make them red" / "make drums blue"</td><td>Older color phrases — still work</td></tr>
+          <tr><td>"put operator on drums" / "add serum"</td><td>Select track + load plugin</td></tr>
+          <tr><td>"add instrument" → then say the name</td><td>Device-only listening mode for max accuracy — misheard names snap to nearest Ableton stock device</td></tr>
           <tr><td>"bypass reverb on drums" / "enable reverb on drums"</td><td>Enable/disable a device</td></tr>
           <tr><td>"remove reverb from drums" / "list devices on drums"</td><td>Delete device or read device chain</td></tr>
           <tr><td>"refresh tracks"</td><td>Re-read track names from Live</td></tr>
@@ -732,7 +765,8 @@
           <tr><td>"re-enable automation"</td><td>Re-enable automation after override</td></tr>
           <tr><td>"capture that" / "capture and make a scene"</td><td>Capture MIDI (requires SaySoBridge)</td></tr>
           <tr><td>"redo take" / "scrap the take"</td><td>Delete the last clip and re-record</td></tr>
-          <tr><td>"keep that"</td><td>Confirm and keep the current take</td></tr>
+          <tr><td>"keep that"</td><td>Stop session record and keep the take</td></tr>
+          <tr><td>"keep last take" / "comp the last"</td><td>Comp Arrangement take lanes — keeps the newest lane, clears the earlier ones (requires SaySoBridge)</td></tr>
         </table>
       </div>
 
@@ -782,8 +816,9 @@
       <div class="cmd-group">
         <p class="cmd-group-label mono">APP CONTROL</p>
         <table class="cmd-table">
-          <tr><td>"pause" / "resume"</td><td>Mic gate — stop/start listening (say before recording vocals)</td></tr>
-          <tr><td>"over"</td><td>End of command (when "wait for over" is toggled on in settings)</td></tr>
+          <tr><td>"pause say so" / "bye computer"</td><td>Stop listening — plays a descending goodbye cue to confirm</td></tr>
+          <tr><td>"resume say so" / "hey computer"</td><td>Start listening again — plays a rising hello cue</td></tr>
+          <tr><td>"please" / "over" / "done" / "finished"</td><td>End a held command (when "wait for please" is on in settings)</td></tr>
           <tr><td>"calibrate"</td><td>Remember M2TM text box position (hover mouse over it first)</td></tr>
           <tr><td>"type it"</td><td>Type composed M2TM syntax into the box and hit Enter</td></tr>
           <tr><td>"clear text"</td><td>Wipe the M2TM text box</td></tr>
@@ -841,7 +876,7 @@
             <tr><td>TYPE</td><td>Standalone Application (.exe / .app)</td></tr>
             <tr><td>REQUIRES</td><td>AbletonOSC + SaySoBridge (both free), Ableton Live 10+</td></tr>
             <tr><td>PLATFORM</td><td>Windows &amp; macOS</td></tr>
-            <tr><td>SPEECH</td><td>Local Vosk model — offline, no account, no internet after first run</td></tr>
+            <tr><td>SPEECH</td><td>Local Vosk — Turbo (~40 MB default), Balanced (~128 MB), Accurate (~1.8 GB) — offline after first download</td></tr>
             <tr><td>PROTOCOL</td><td>OSC via AbletonOSC (port 11000) + SaySoBridge (port 11002)</td></tr>
             <tr><td>PRIVACY</td><td>Nothing you say leaves your computer</td></tr>
             <tr><td>LICENSE</td><td>Free &mdash; unofficial, not affiliated with Ableton AG</td></tr>
@@ -853,6 +888,28 @@
           <div class="changelog">
             <div class="changelog-entry">
               <div class="changelog-version">
+                <strong>V1.0.0</strong>
+                <span>EARLY ACCESS — 2026</span>
+              </div>
+              <ul>
+                <li>Turbo model default (~40 MB) with Response speed selector: Turbo / Balanced / Accurate</li>
+                <li>Parallel keyword spotter — "play" fires near-instantly even if the main model mishears</li>
+                <li>Navigate vs. Fire distinction: "next scene" now moves only; say "fire next scene" to launch</li>
+                <li>Selection capture mode — list tracks across pauses, "and" before the last closes it</li>
+                <li>Solo is exclusive, mute/arm are not toggles — explicit and predictable</li>
+                <li>Push-to-talk (F8), wake word (customizable), auto-arm on select</li>
+                <li>Command word rebinding — set your own trigger word for any command</li>
+                <li>"add instrument" device-capture mode for accurate plugin loading</li>
+                <li>Keep last take / comp take lanes (requires SaySoBridge v3.7)</li>
+                <li>"pause say so" / "bye computer" / "resume say so" / "hey computer" — audio cues confirm</li>
+                <li>13 UI themes: Dark · Midnight · Light · High Contrast · Warm · Nord · Dracula · Solarized · Rose · Forest · Cyberpunk · Mono · Ocean</li>
+                <li>Live mixer strip — track state reflected in real time, click to add to selection</li>
+                <li>Microphone gain slider, dynamic auto-leveling, built-in noise gate</li>
+                <li>Macros seeded with defaults on first run</li>
+              </ul>
+            </div>
+            <div class="changelog-entry">
+              <div class="changelog-version">
                 <strong>V0.6</strong>
                 <span>EARLY ACCESS — 2026</span>
               </div>
@@ -860,16 +917,9 @@
                 <li>Constrained speech recognition — vocabulary locked to known commands + track names</li>
                 <li>Type-to-teach: type a correction and Say So learns it permanently</li>
                 <li>Full transport, mixer, navigation, loop, scenes, clips, and marker control</li>
-                <li>Multi-track selection ("select tracks two, three and four")</li>
-                <li>Record/takes: capture MIDI, redo take, scrap take</li>
-                <li>Macros — trigger phrases that run multiple commands in sequence</li>
-                <li>Ask commands — spoken answers logged and optionally read aloud</li>
-                <li>Auto-renaming with open vocabulary fallback</li>
-                <li>Hands-free M2TM chord and melody composing</li>
-                <li>Plugin loading via SaySoBridge (no search bar required)</li>
-                <li>Pause/resume mic gate + "wait for over" mode</li>
-                <li>5 accessible UI themes (Dark, Midnight, Light, High Contrast, Warm)</li>
-                <li>Windows &amp; macOS</li>
+                <li>Multi-track selection, macros, ask commands, M2TM composing</li>
+                <li>Plugin loading via SaySoBridge, pause/resume mic gate</li>
+                <li>5 accessible UI themes, Windows &amp; macOS</li>
               </ul>
             </div>
           </div>
@@ -881,7 +931,7 @@
 
   <div class="cta-strip">
     <h2>Say So</h2>
-    <p>V0.6 Early Access — Free. Unofficial. Not affiliated with Ableton AG.</p>
+    <p>V1.0.0 Early Access — Free. Unofficial. Not affiliated with Ableton AG.</p>
     <div class="cta-buttons">
       <a class="download-btn" href="#" data-download="Say So" data-platform="mac">
         <span class="dl-os">Mac</span><span class="dl-fmt mono">macOS — planned</span><span class="dl-arrow">&#8595;</span>
